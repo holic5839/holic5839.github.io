@@ -3,15 +3,62 @@
 	<head>
     <meta charset="utf-8">
       <title> About </title>
+    <style>
+      header {
+        background: #1E90FF;
+      }
+
+      header a {
+        margin-right: 1em;
+      }
+
+      h1 {
+        display: flex;
+        justify-content: center;
+      }
+
+      nav {
+      display: flex;
+      justify-content: center;
+    }
+
+      section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 60px;
+      }
+
+      body {
+        margin: 0 !important;
+      }
+
+      html {
+        margin-top: 0;
+      }
+    </style>
   </head>
   <body>
-    <img src="https://avatars2.githubusercontent.com/u/13871374?s=460&v=4">
-    <ul>
-        <li>Name : 구슬가운 (Holic Koo)</li>
-        <li>E-mail : holic5839@gmail.com </li>
-        <li>Position : Front-End</li>
-        <li>Tech : HTML5 / CSS3 / Javascript</li>
-    </ul>
+      <header>
+          <h1>Web Tech Blog</h1>
+            <nav>
+                <a href="http://localhost:5500"> Home </a>
+                <a href="http://localhost:5500/about.html"> About me </a>
+                <a href="#"> Web Dev </a>
+            </nav>
+          </header>
+      <section>
+          <img src="https://avatars2.githubusercontent.com/u/13871374?s=460&v=4" height="250px" width="250px">
+        <ul>
+          <li>Name : 구슬가운 (Holic Koo)</li>
+          <li>Position : Front-End</li>
+          <li>Tech : HTML5 / CSS3 / JavaScript</li>
+          <li>E-mail : <a href="mailto:holic5839@gmail.com"> holic5839@gmail.com </a></li>
+          <li><a href="http://www.github.com/holic5839" target="_blank"> Github </a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=100009005078466" target="_blank"> Facebook </a></li>
+        </ul>
+    </section>
   </body>
 </html>
 
