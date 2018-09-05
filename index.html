@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    <meta charset="utf-8">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
       <title> Main </title>
   <style>
     header {
         background: #1E90FF;
+        padding-top: 100px;
       }
 
     header a {
@@ -15,11 +21,30 @@
     h1 {
       display: flex;
       justify-content: center;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 60px;
+      font-family: 'Baloo Tammudu', cursive;
     }
 
     nav {
       display: flex;
       justify-content: center;
+    }
+
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        margin: 0 !important;
+      }
+
+    article {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+        flex: 1;
     }
   </style>
   </head>
@@ -27,10 +52,23 @@
     <header>
       <h1>Web Tech Blog</h1>
         <nav>
-            <a href="http://holic5839.github.io/index.html"> Home </a>
+            <a href="/"> Home </a>
             <a href="http://holic5839.github.io/about.html"> About me </a>
             <a href="#"> Web Dev </a>
         </nav>
       </header>
+      <article>
+        <p> 주의 </p>
+        <p> 이 블로그는 현재 공부한 내용을 정리하는 용도이므로 </p>
+        <p> 해당 내용들은 정확하지 않을 확률이 높습니다. </p>
+        <p> 또한 내용은 계속 추가 수정 삭제가 이루어집니다. </p>
+        <p> 블로그는 현재 막 제작중이므로 각각의 요소들이 형편없을 수 있습니다. </p>
+        <p> </p>
+      </article>
+      <footer>
+        <p> 사이트 사용된 외부 기술 </p>
+        <p><a href="https://fontawesome.com/" target="_blank"><i class="far fa-copyright"> font awesome </i></a></p>
+        <p><a href="https://fonts.google.com/" target="_blank"><i class="far fa-copyright"> google font </i></a></p>
+      </footer>
   </body>
 </html>

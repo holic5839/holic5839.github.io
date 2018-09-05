@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    <meta charset="utf-8">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
       <title> About </title>
     <style>
       header {
         background: #1E90FF;
+        padding-top: 100px;
       }
 
       header a {
@@ -15,6 +21,10 @@
       h1 {
         display: flex;
         justify-content: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 60px;
+        font-family: 'Baloo Tammudu', cursive;
       }
 
       nav {
@@ -22,16 +32,19 @@
       justify-content: center;
     }
 
+      body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        margin: 0 !important;
+      }
+
       section {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         margin-top: 60px;
-      }
-
-      body {
-        margin: 0 !important;
+        flex: 1;
       }
     </style>
   </head>
@@ -39,7 +52,7 @@
       <header>
           <h1>Web Tech Blog</h1>
             <nav>
-                <a href="holic5839.github.io/index.html"> Home </a>
+                <a href="/"> Home </a>
                 <a href="http://holic5839.github.io/about.html"> About me </a>
                 <a href="#"> Web Dev </a>
             </nav>
@@ -55,6 +68,11 @@
           <li><a href="https://www.facebook.com/profile.php?id=100009005078466" target="_blank"> Facebook </a></li>
         </ul>
     </section>
+    <footer>
+        <p> 사이트 사용된 외부 기술 </p>
+        <p><a href="https://fontawesome.com/" target="_blank"><i class="far fa-copyright"> font awesome </i></a></p>
+        <p><a href="https://fonts.google.com/" target="_blank"><i class="far fa-copyright"> google font </i></a></p>
+      </footer>
   </body>
 </html>
 
