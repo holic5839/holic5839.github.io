@@ -31,9 +31,10 @@
       justify-content: center;
     }
 
-    #test {
-      display: none;
+    #nav2 {
+      display: flex;
       visibility: hidden;
+      justify-content: center;
     }
 
     body {
@@ -43,12 +44,18 @@
         flex-direction: column;
       }
 
-    article {
+    section {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 60px;
         flex: 1;
+    }
+
+    em {
+      font-size: 30px;
+      font-weight: bold;
+      color: red;
     }
   </style>
   </head>
@@ -60,17 +67,17 @@
             <a href="http://localhost:5500/about.html"> About me </a>
             <!--<a href="http://holic5839.github.io/about.html"> About me </a>-->
             <a href="#" class='nav'> Web Dev </a>
-            <p id="test">test</p>
-        </nav>
-      </header>
-      <article>
-        <p> 주의 </p>
+          </nav>
+        </header>
+        <p id="nav2">HTML CSS JavaScript</p>
+      <section>
+        <em> 주의 </em><br>
         <p> 이 블로그는 현재 공부한 내용을 정리하는 용도이므로 </p>
         <p> 해당 내용들은 정확하지 않을 확률이 높습니다. </p>
         <p> 또한 내용은 계속 추가 수정 삭제가 이루어집니다. </p>
         <p> 블로그는 현재 막 제작중이므로 각각의 요소들이 형편없을 수 있습니다. </p>
         <p> </p>
-      </article>
+      </section>
       <footer>
         <p> 사이트 사용된 외부 기술 </p>
         <p><a href="https://fontawesome.com/" target="_blank"><i class="far fa-copyright"> font awesome </i></a></p>
@@ -78,13 +85,22 @@
       </footer>
   <script>
       var nav = document.querySelector('.nav');
-      var test = document.getElementById('test');
+      var nav2 = document.getElementById('nav2');
+      var head = document.querySelector('h1');
 
       nav.addEventListener('mouseover', function() {
-        test.style.visibility = 'visible';
-
-        console.log('test');
+        nav2.style.visibility = 'visible';
+        console.dir(nav);
       })
+
+      nav2.addEventListener('mouseout', function() {
+        nav2.style.visibility = 'hidden';
+      })
+
+      head.addEventListener('mouseover', function() {
+        nav2.style.visibility = 'hidden';
+      })
+
   </script>
   </body>
 </html>
