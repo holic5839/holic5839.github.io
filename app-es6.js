@@ -178,9 +178,7 @@ clearCompleted.addEventListener('click', function(e){
 
 // data load하기
 window.addEventListener('load', function () {
-  todos = [
-      { id: 1, content: '할일을 입력하고 enter(return)을 누르세요', completed: false }
-  ];
+  todos = [];
   newRenderHtml();
   itemCount();
 });

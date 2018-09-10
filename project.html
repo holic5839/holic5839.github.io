@@ -72,7 +72,7 @@
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <h1 class="title">Todos</h1>
-            <input id="input-todo" class="form-control input-lg" placeholder="What needs to be done?" autofocus>
+            <input id="input-todo" class="form-control input-lg" placeholder="할일을 입력하고 enter(return)을 누르세요" autofocus>
               <ul class="nav nav-xs nav-pills">
                 <li id="all" class="active">
                   <a>All</a>
@@ -105,24 +105,5 @@
       <p><a href="https://getbootstrap.com/" target="_blank"><i class="far fa-copyright"> bootstrap </i></a></p>
       <p><a href="https://poiemaweb.com" target="_blank"><i class="far fa-copyright"> PoiemaWeb (HTML 마크업) </i></a></p>
   </footer>
-  <script>
-      var mainnav = document.querySelector('.mainnav');
-      var nav2 = document.getElementById('nav2');
-      var head = document.querySelector('h1');
-
-      mainnav.addEventListener('mouseover', function() {
-        nav2.style.visibility = 'visible';
-        console.dir(mainnav);
-      })
-
-      nav2.addEventListener('mouseout', function() {
-        nav2.style.visibility = 'hidden';
-      })
-
-      head.addEventListener('mouseover', function() {
-        nav2.style.visibility = 'hidden';
-      })
-
-  </script>
   </body>
 </html>
