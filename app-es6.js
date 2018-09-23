@@ -131,6 +131,7 @@ allChecked.addEventListener('change', function(e){
   list.innerHTML = '';
   tapCheck.id === 'all' ? newRenderHtml() : '';
   itemCount();
+  console.dir(e);
 });
 
 
@@ -158,7 +159,6 @@ inputText.addEventListener('keyup' , function (e) {
 // 삭제 버튼 클릭 시 해당 항목 삭제
 list.addEventListener('click', function(e){
   if (e.target.nodeName !== 'SPAN' || e.target.outerText !== '') return;
-
   todos = todos.filter(todo => {return todo.id !== +e.target.dataset.id});
   this.removeChild(e.target.parentNode.parentNode.parentNode);
   itemCount();
@@ -169,10 +169,11 @@ list.addEventListener('click', function(e){
 // clear completed 버튼 구현
 clearCompleted.addEventListener('click', function(e){
   todos = todos.filter(todo => {return todo.completed !== true});
+  document.getElementById('chk-allComplete').checked = false;
   list.innerHTML = '';
   newRenderHtml();
   itemCount();
-  console.dir(todos);
+  console.dir(allChecked);
 });
 
 
