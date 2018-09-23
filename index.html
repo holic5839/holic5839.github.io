@@ -10,11 +10,12 @@
       <title> Main </title>
   <style>
     header {
-        background: #1E90FF;
+        background: #503FB2;
         padding-top: 100px;
       }
 
     header a {
+        color: #fff;
         text-decoration-line: none;
       }
 
@@ -28,23 +29,22 @@
     nav {
       display: flex;
       justify-content: space-evenly;
-      font-size: 20px;
+      font-size: 15px;
     }
 
-    #nav2 {
-      position: relative;
+    .nav2 {
       visibility: hidden;
     }
 
     .navdetail {
-
+      color: #fff;
     }
 
     body {
-        margin: 0 !important;
-        min-height: 100vh;
         display: flex;
+        min-height: 100vh;
         flex-direction: column;
+        margin: 0 !important;
       }
 
     section {
@@ -67,12 +67,13 @@
       <h1><a href='/'>Web Tech Blog</a></h1>
         <nav>
             <a href="/about.html"> About me </a>
-            <a href="#" class='navdetail'> Web-Dev-Study </a>
+            <div class='navdetail'> Web-Dev-Study
+                <div class="nav2">HTML  |  CSS  |  JavaScript</div>
+            </div>
             <a href="/project.html"> Todo-Project </a>
             <a href="#"> Hobby </a>
           </nav>
         </header>
-          <p id="nav2">HTML  |  CSS  |  JavaScript</p>
       <section>
         <em> 주의 </em><br>
         <p> 이 블로그는 현재 공부한 내용을 정리하고 실험하는 용도이므로 </p>
@@ -89,19 +90,13 @@
       </footer>
   <script>
       var nav = document.querySelector('.navdetail');
-      var nav2 = document.getElementById('nav2');
-      var head = document.querySelector('h1');
+      var nav2 = document.querySelector('.nav2');
 
       nav.addEventListener('mouseover', function() {
         nav2.style.visibility = 'visible';
-        console.dir(nav);
       })
 
-      nav2.addEventListener('mouseout', function() {
-        nav2.style.visibility = 'hidden';
-      })
-
-      head.addEventListener('mouseover', function() {
+      nav.addEventListener('mouseout', function() {
         nav2.style.visibility = 'hidden';
       })
 
