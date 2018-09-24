@@ -171,7 +171,6 @@ clearCompleted.addEventListener('click', function(e){
   todos = todos.filter(todo => {return todo.completed !== true});
   document.getElementById('chk-allComplete').checked = false;
   list.innerHTML = '';
-  newRenderHtml();
   itemCount();
   console.dir(allChecked);
 });
