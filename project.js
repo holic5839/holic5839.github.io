@@ -20,6 +20,26 @@ newRenderHtml = () => {
 });
 }
 
+// 키보드로 값 입력하기
+inputText.addEventListener('keyup' , function (e) {
+  if (inputText.value === '' || e.keyCode !== 13) return;
+  if (e.target.nextSibling.nextSibling.lastElementChild.className === 'active') allTab();
+  let result = todos.map(todo => todo.id);
+  let maxId = todos.length === 0 ? 1 : Math.max.apply(null, result) + 1;
+  todos.unshift({ id: maxId, content: inputText.value, completed: false });
+
+  list.innerHTML = '<li class="list-group-item">'
+      + '<div class="hover-anchor">'
+      + '<a class="hover-action text-muted">'
+      + '<span class="glyphicon glyphicon-remove-circle pull-right" data-id="'
+      + maxId + '"></span></a><label class="i-checks" for="' + maxId + '">'
+      + '<input type="checkbox" id="' + maxId + '"' + false + '><i></i>'
+      + '<span>' + inputText.value + '</span>'
+      + '<label></div></li>' + list.innerHTML;
+  inputText.value = '';
+  itemCount();
+  console.log(todos);
+});
 
 // all Tab 눌렀을 때
 allTab = () => {
@@ -134,28 +154,6 @@ allChecked.addEventListener('change', function(e){
   console.dir(e);
 });
 
-
-// 키보드로 값 입력하기
-inputText.addEventListener('keyup' , function (e) {
-  if (inputText.value === '' || e.keyCode !== 13) return;
-  let result = todos.map(todo => todo.id);
-  let maxId = todos.length === 0 ? 1 : Math.max.apply(null, result) + 1;
-  todos.unshift({ id: maxId, content: inputText.value, completed: false });
-
-  list.innerHTML = '<li class="list-group-item">'
-      + '<div class="hover-anchor">'
-      + '<a class="hover-action text-muted">'
-      + '<span class="glyphicon glyphicon-remove-circle pull-right" data-id="'
-      + maxId + '"></span></a><label class="i-checks" for="' + maxId + '">'
-      + '<input type="checkbox" id="' + maxId + '"' + false + '><i></i>'
-      + '<span>' + inputText.value + '</span>'
-      + '<label></div></li>' + list.innerHTML;
-  inputText.value = '';
-  itemCount();
-  console.log(todos);
-});
-
-
 // 삭제 버튼 클릭 시 해당 항목 삭제
 list.addEventListener('click', function(e){
   if (e.target.nodeName !== 'SPAN' || e.target.outerText !== '') return;
@@ -168,10 +166,11 @@ list.addEventListener('click', function(e){
 
 // clear completed 버튼 구현
 clearCompleted.addEventListener('click', function(e){
-  todos = todos.filter(todo => {return todo.completed !== true});
+  todos = todos.filter(todo => { return todo.completed !== true });
   document.getElementById('chk-allComplete').checked = false;
   list.innerHTML = '';
   itemCount();
+  newRenderHtml();
   console.dir(allChecked);
 });
 
