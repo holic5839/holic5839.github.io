@@ -1,34 +1,7 @@
-<!DOCTYPE html>
-<html>
-	<head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-      <title> 룰렛 </title>
-      <link rel="stylesheet" href="roulette.css">
-      <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-  </head>
-  <body>
-        <div id="menu">
-          <div class="canvasWrapper">
-            <div class="pin"></div>
-            <canvas width="600" height='600'></canvas>  
-          </div>
-          <button onclick="rotate()">돌려돌려 돌림판</button>
-          <div id="addDiv">
-            <input type="text" id="menuAdd">
-            <button onclick="add()">메뉴 추가</button>
-          </div>
-        </div>
-  </body>
-  <script>
-    const $c = document.querySelector("canvas");
+const $c = document.querySelector("canvas");
 const ctx = $c.getContext(`2d`);
 const menuAdd = document.querySelector('#menuAdd');
-const product = ['다시 돌리기'];
+const product = ["햄버거", "순대국", "정식당", "중국집", "구내식당"];
 const colors = [];
 
 const newMake = () => {
@@ -52,7 +25,7 @@ const newMake = () => {
   }
 
   ctx.fillStyle = "#fff";
-  ctx.font = "30px Pretendard";
+  ctx.font = "18px Pretendard";
   ctx.textAlign = "center";
 
   for (let i = 0; i < product.length; i++) {
@@ -107,5 +80,3 @@ function add(){
 }
 
 newMake();
-  </script>
-</html>
