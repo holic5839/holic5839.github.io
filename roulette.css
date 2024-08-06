@@ -22,9 +22,9 @@
       cursor: pointer;
   }
   
-  button:active {
-    background: #444;
-    color: #f9f9f9;
+  .active {
+    background: #78cad2 !important;
+    color: #fff !important;
   }
 
   #addDiv {
@@ -49,6 +49,11 @@
     justify-content: center;
     flex-direction: column;
     position: relative;
+  }
+
+  .type-button button {
+     margin-top: 20px;
+     background-color: #eaeaea;
   }
 
   .canvasWrapper {
