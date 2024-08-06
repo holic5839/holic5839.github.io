@@ -51,8 +51,11 @@
     position: relative;
   }
 
+  .type-button {
+    margin-top: 20px;
+  }
+
   .type-button button {
-     margin-top: 20px;
      background-color: #eaeaea;
   }
 
