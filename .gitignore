@@ -23,3 +23,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+.prettierrc

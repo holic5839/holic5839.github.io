@@ -1,155 +1,143 @@
 <!DOCTYPE html>
 <html>
-	<head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-      <title> 룰렛 </title>
-      <link rel="stylesheet" href="roulette.css">
-      <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-  </head>
-  <body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet" />
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+            integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+            crossorigin="anonymous"
+        />
+        <title>룰렛</title>
+        <link rel="stylesheet" href="roulette.css" />
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    </head>
+    <body>
         <div id="menu">
-          <div class="canvasWrapper">
-            <div class="pin"></div>
-            <canvas width="600" height='600'></canvas>  
-          </div>
-          <button onclick="rotate()">돌려돌려 돌림판</button>
-          <div id="addDiv">
-            <input type="text" id="menuAdd">
-            <button onclick="add()">메뉴 추가</button>
-          </div>
-          <div class="type-button">
-            <button onclick="changeType(event)" class="active">서판교</button>
-            <button onclick="changeType(event)">오산</button>
-          </div>
+            <div class="canvasWrapper">
+                <div class="pin"></div>
+                <canvas width="600" height="600"></canvas>
+            </div>
+            <button onclick="rotate()">돌려돌려 돌림판</button>
+            <div id="addDiv">
+                <input type="text" id="menuAdd" />
+                <button onclick="add()">메뉴 추가</button>
+            </div>
+            <div class="type-button">
+                <button onclick="changeType(event)" class="active">서판교</button>
+                <button onclick="changeType(event)">오산</button>
+            </div>
         </div>
-  </body>
-  <script>
-    let type = '서판교';
-    const $c = document.querySelector("canvas");
-    const ctx = $c.getContext(`2d`);
-    const menuAdd = document.querySelector('#menuAdd');
-    const typeButton = document.querySelector('.type-button').children[0];
-    const typeButton2 = document.querySelector('.type-button').children[1];
-    
-    const product = [
-      {
-        place: '서판교',
-        foods: [
-          '베트남음식점',
-          '마라탕',
-          '닭갈비',
-          '중국집',
-          '햄버거',
-          '백반',
-          '솥밥',
-          '육개장',
-          '청년다방',
-        ],
-      },
-      {
-        place: '오산',
-        foods: ['다시 돌리기'],
-      },
-    ];
+    </body>
+    <script>
+        let type = '서판교';
+        const $c = document.querySelector('canvas');
+        const ctx = $c.getContext(`2d`);
+        const menuAdd = document.querySelector('#menuAdd');
+        const typeButton = document.querySelector('.type-button').children[0];
+        const typeButton2 = document.querySelector('.type-button').children[1];
 
-    let currentProduct = product.find(i => i.place === type);
+        const product = [
+            {
+                place: '서판교',
+                foods: ['베트남음식점', '마라탕', '닭갈비', '중국집', '햄버거', '백반', '솥밥', '육개장', '청년다방'],
+            },
+            {
+                place: '오산',
+                foods: ['다시 돌리기'],
+            },
+        ];
 
-    const colors = [];
+        let currentProduct = product.find((i) => i.place === type);
 
-    const changeType = (e) => {
-      if (e.target.innerText === '서판교' && !typeButton.className.includes('active')) {
-        typeButton.className += 'active';
-        type = '서판교';
-        typeButton2.classList.remove('active');
-      } else if (e.target.innerText === '오산' && !typeButton2.className.includes('active')) {
-        typeButton2.className += 'active';
-        typeButton.classList.remove('active');
-        type = '오산';
-      }
-      currentProduct = product.find(i => i.place === type);
-      newMake();
-    }
+        const colors = [];
 
-    const newMake = () => {
-      const [cw, ch] = [$c.width / 2, $c.height / 2];
-      const arc = Math.PI / (currentProduct.foods.length / 2);  
-      for (let i = 0; i < currentProduct.foods.length; i++) {
-        ctx.beginPath();
-        if(colors.length == 0){
-          for(var l=0; l<currentProduct.foods.length; l++){
-            let r = Math.floor(Math.random() * 256);
-            let g = Math.floor(Math.random() * 256);
-            let b = Math.floor(Math.random() * 256);
-            colors.push("rgb(" + r + "," + g + "," + b + ")");
-          }
+        const changeType = (e) => {
+            if (e.target.innerText === '서판교' && !typeButton.className.includes('active')) {
+                typeButton.className += 'active';
+                type = '서판교';
+                typeButton2.classList.remove('active');
+            } else if (e.target.innerText === '오산' && !typeButton2.className.includes('active')) {
+                typeButton2.className += 'active';
+                typeButton.classList.remove('active');
+                type = '오산';
+            }
+            currentProduct = product.find((i) => i.place === type);
+            newMake();
+        };
+
+        const newMake = () => {
+            const [cw, ch] = [$c.width / 2, $c.height / 2];
+            const arc = Math.PI / (currentProduct.foods.length / 2);
+            for (let i = 0; i < currentProduct.foods.length; i++) {
+                ctx.beginPath();
+                if (colors.length == 0) {
+                    for (var l = 0; l < currentProduct.foods.length; l++) {
+                        let r = Math.floor(Math.random() * 256);
+                        let g = Math.floor(Math.random() * 256);
+                        let b = Math.floor(Math.random() * 256);
+                        colors.push('rgb(' + r + ',' + g + ',' + b + ')');
+                    }
+                }
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(cw, ch);
+                ctx.arc(cw, ch, cw, arc * (i - 1), arc * i);
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            ctx.fillStyle = '#fff';
+            ctx.font = '30px Pretendard';
+            ctx.textAlign = 'center';
+
+            for (let i = 0; i < currentProduct.foods.length; i++) {
+                const angle = arc * i + arc / 2;
+
+                ctx.save();
+
+                ctx.translate(cw + Math.cos(angle) * (cw - 50), ch + Math.sin(angle) * (ch - 50));
+
+                ctx.rotate(angle + Math.PI / 2);
+
+                currentProduct.foods[i].split(' ').forEach((text, j) => {
+                    ctx.fillText(text, 0, 30 * j);
+                });
+
+                ctx.restore();
+            }
+        };
+
+        const rotate = () => {
+            $c.style.transform = `initial`;
+            $c.style.transition = `initial`;
+            const alpha = Math.floor(Math.random() * 100);
+
+            setTimeout(() => {
+                const ran = Math.floor(Math.random() * currentProduct.foods.length);
+                const arc = 360 / currentProduct.foods.length;
+                const rotate = ran * arc + 3600 + arc * 3 - arc / 4 + alpha;
+                $c.style.transform = `rotate(-${rotate}deg)`;
+                $c.style.transition = `2s`;
+            }, 1);
+        };
+
+        function add() {
+            if (menuAdd.value != undefined && menuAdd.value != '') {
+                currentProduct.foods.push(menuAdd.value);
+                let r = Math.floor(Math.random() * 256);
+                let g = Math.floor(Math.random() * 256);
+                let b = Math.floor(Math.random() * 256);
+                colors.push('rgb(' + r + ',' + g + ',' + b + ')');
+                newMake();
+                menuAdd.value = '';
+            } else {
+                alert('메뉴를 입력한 후 버튼을 클릭 해 주세요');
+            }
         }
-        ctx.fillStyle = colors[i % (colors.length)];
-        ctx.moveTo(cw, ch);
-        ctx.arc(cw, ch, cw, arc * (i - 1), arc * i);
-        ctx.fill();
-        ctx.closePath();
-      }
 
-      ctx.fillStyle = "#fff";
-      ctx.font = "30px Pretendard";
-      ctx.textAlign = "center";
-
-      for (let i = 0; i < currentProduct.foods.length; i++) {
-        const angle = (arc * i) + (arc / 2);
-
-        ctx.save();
-
-        ctx.translate(
-          cw + Math.cos(angle) * (cw - 50),
-          ch + Math.sin(angle) * (ch - 50)
-        );
-
-        ctx.rotate(angle + Math.PI / 2);
-
-        currentProduct.foods[i].split(" ").forEach((text, j) => {
-          ctx.fillText(text, 0, 30 * j);
-        });
-
-        ctx.restore();
-      }
-    }
-
-    const rotate = () => {
-      $c.style.transform = `initial`;
-      $c.style.transition = `initial`;
-      const alpha = Math.floor(Math.random()*100);
-
-      setTimeout(() => {    
-        const ran = Math.floor(Math.random() * currentProduct.foods.length);
-        const arc = 360 / currentProduct.foods.length;
-        const rotate = (ran * arc) + 3600 + (arc * 3) - (arc/4) + alpha;
-        $c.style.transform = `rotate(-${rotate}deg)`;
-        $c.style.transition = `2s`;
-        
-      }, 1);
-    };
-
-
-    function add(){
-      if(menuAdd.value != undefined && menuAdd.value != ""){
-        currentProduct.foods.push(menuAdd.value);
-        let r = Math.floor(Math.random() * 256);
-        let g = Math.floor(Math.random() * 256);
-        let b = Math.floor(Math.random() * 256);
-        colors.push("rgb(" + r + "," + g + "," + b + ")");
         newMake();
-        menuAdd.value="";
-      }
-      else{
-        alert("메뉴를 입력한 후 버튼을 클릭 해 주세요");
-      }
-    }
-
-    newMake();
-  </script>
+    </script>
 </html>
