@@ -200,7 +200,6 @@ inputText.addEventListener('input', (event) => {
 
 // Enter 키를 눌러 문장 확인
 inputText.addEventListener('keydown', (event) => {
-    console.dir(record);
     if (event.keyCode === 13) {
         event.preventDefault(); // 기본 Enter 동작 차단
         const userInput = inputText.value.trim();
