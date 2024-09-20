@@ -11,14 +11,22 @@
         <div class="container">
             <h1>타자 연습</h1>
             <div class="header-wrapper">
-                <div id="elapsedTime"></div>
+                <div class="elapsedTime-wrapper">
+                    <p>경과 시간:</p>
+                    <div id="elapsedTime"></div>
+                </div>
                 <div class="kpm-wrapper">
                     <p>현재 타수:</p>
                     <div id="kpm"></div>
                 </div>
+                <div class="record-wrapper">
+                    <p>최고 타수:</p>
+                    <div id="record"></div>
+                    <span>타 / 분</span>
+                </div>
             </div>
             <p id="textToType"></p>
-            <input type="text" id="inputText" placeholder="" autocomplete="off" />
+            <input type="text" id="inputText" placeholder="" autocomplete="off" autofocus="true" />
             <div id="result"></div>
         </div>
         <script src="script.js"></script>

@@ -113,6 +113,9 @@ const inputText = document.getElementById('inputText');
 const result = document.getElementById('result');
 const kpmElement = document.getElementById('kpm');
 const elapsedTimeElement = document.getElementById('elapsedTime');
+const record = document.getElementById('record');
+
+let kpm = 0;
 
 function shuffle(array) {
     // 배열의 마지막 요소부터 반복하면서 무작위 요소와 교환
@@ -140,7 +143,7 @@ function updateSentence() {
 // 타이머 초기화 함수
 function resetTimer() {
     if (intervalId) clearInterval(intervalId); // 타이머가 있으면 중지
-    elapsedTimeElement.innerText = '경과 시간: 0.00초'; // 경과 시간 초기화
+    elapsedTimeElement.innerText = '0.00초'; // 경과 시간 초기화
     startTime = null; // 시작 시간 초기화
     isTyping = false; // 타이핑 상태 초기화
 }
@@ -159,7 +162,7 @@ function updateElapsedTime() {
     const seconds = Math.floor(elapsedTimeInSeconds);
     const milliseconds = Math.floor((elapsedTimeInMilliseconds % 1000) / 10); // 밀리초를 10ms 단위로 변환
 
-    elapsedTimeElement.innerText = `경과 시간: ${seconds}.${milliseconds.toString().padStart(2, '0')}초`;
+    elapsedTimeElement.innerText = `${seconds}.${milliseconds.toString().padStart(2, '0')}초`;
 }
 
 // 한글 자모 단위로 분리하여 키 입력 수 계산하는 함수
@@ -190,19 +193,21 @@ inputText.addEventListener('input', (event) => {
 
     // KPM 계산 및 출력 (2번 이상 키 입력했을 때만)
     if (startTime && totalKeystrokes > 1) {
-        const kpm = calculateKPM(totalKeystrokes, startTime);
+        kpm = calculateKPM(totalKeystrokes, startTime);
         kpmElement.innerText = `${kpm}타 / 분`;
     }
 });
 
 // Enter 키를 눌러 문장 확인
 inputText.addEventListener('keydown', (event) => {
+    console.dir(record);
     if (event.keyCode === 13) {
         event.preventDefault(); // 기본 Enter 동작 차단
         const userInput = inputText.value.trim();
         if (userInput === sentences[currentSentenceIndex]) {
             result.innerText = '정확합니다!';
             result.className = 'success';
+            record.innerText = Number(record.innerText) > kpm ? record.innerText : kpm;
             // 다음 문장으로 이동
             currentSentenceIndex++;
             updateSentence();
