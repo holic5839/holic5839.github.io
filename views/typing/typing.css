@@ -54,6 +54,25 @@ body.dark-mode {
 }
 
 .dark-mode .segment-wrapper {
+    display: flex;
+}
+
+.dark-mode .segment-wrapper div {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.dark-mode .segment-wrapper div:last-child {
+    margin-right: 0;
+}
+
+.dark-mode .segment-wrapper div:hover {
+    color: #000;
+    background-color: #fff;
+    transition: all 0.5s;
 }
 
 .dark-mode .header-wrapper {
@@ -170,6 +189,25 @@ input[type='text']:focus {
 }
 
 .segment-wrapper {
+    display: flex;
+}
+
+.segment-wrapper div {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.segment-wrapper div:last-child {
+    margin-right: 0;
+}
+
+.segment-wrapper div:hover {
+    color: #fff;
+    background-color: #000;
+    transition: all 0.5s;
 }
 
 .header-wrapper {
