@@ -1,4 +1,4 @@
-const sentences = [
+const sentencesKorean = [
     '가재는 게 편이라',
     '가는 날이 장날이다',
     '가는 말이 고와야 오는 말이 곱다',
@@ -102,7 +102,7 @@ const sentences = [
     '천리길도 한 걸음부터',
 ];
 
-const sentences2 = [
+const sentencesEnglish = [
     'A bird in the hand is worth two in the bush',
     'A blessing in disguise',
     'A penny saved is a penny earned',
@@ -197,7 +197,7 @@ const sentences2 = [
     'Your guess is as good as mine',
 ];
 
-let currentSentenceIndex = 0;
+let currentSentenceIndex = 0; // 현재 문장 index
 let startTime; // 타이핑 시작 시간
 let totalKeystrokes = 0; // 입력된 총 키스트로크 수
 let intervalId; // setInterval ID
@@ -212,7 +212,11 @@ const record = document.getElementById('record');
 
 let kpm = 0;
 
+// 테마, 언어변경용 변수
 const savedMode = localStorage.getItem('theme');
+const language = localStorage.getItem('language');
+
+const sentences = language === 'korean' ? sentencesKorean : sentencesEnglish;
 
 if (savedMode) {
     document.body.classList.toggle('dark-mode', savedMode === 'dark');
@@ -223,6 +227,15 @@ function changeTheme() {
     const theme = isDarkMode ? 'dark' : 'light';
 
     localStorage.setItem('theme', theme);
+}
+
+function changeLanguage() {
+    if (language === 'korean') {
+        localStorage.setItem('language', 'english');
+    } else {
+        localStorage.setItem('language', 'korean');
+    }
+    location.reload();
 }
 
 function shuffle(array) {
@@ -277,16 +290,26 @@ function updateElapsedTime() {
     elapsedTimeElement.innerText = `${seconds}.${milliseconds.toString().padStart(2, '0')}`;
 }
 
-// 한글 자모 단위로 분리하여 키 입력 수 계산하는 함수
-function countKeystrokes(input) {
+// 한글 자모 단위로 분리하여 키 입력 수 계산하는 함수 (한글 전용)
+function countKeystrokesKorean(input) {
     const decomposed = input.normalize('NFD');
     return decomposed.replace(/[^\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF]/g, '').length;
+}
+
+// 영어 알파벳 개수를 계산하는 함수 (영어 전용)
+function countKeystrokesEnglish(input) {
+    return input.replace(/[^a-zA-Z]/g, '').length;
 }
 
 // KPM 계산 함수
 function calculateKPM(keystrokes, startTime) {
     const elapsedTimeInMinutes = (Date.now() - startTime) / 1000 / 60;
     return Math.round(keystrokes / elapsedTimeInMinutes);
+}
+
+// 한글 여부를 판단하는 함수
+function isKorean(text) {
+    return /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
 }
 
 // 타이핑 시작 시간 기록 및 KPM 업데이트
@@ -301,10 +324,18 @@ inputText.addEventListener('input', (event) => {
         isTyping = true;
     }
 
-    // 자모 분리된 실제 키 입력 수를 계산
-    totalKeystrokes = countKeystrokes(userInput);
+    let totalKeystrokes;
 
-    // KPM 계산 및 출력 (2번 이상 키 입력했을 때만)
+    // 한글이면 자모 분리 후 키 입력 수 계산
+    if (isKorean(userInput)) {
+        totalKeystrokes = countKeystrokesKorean(userInput);
+    }
+    // 영어면 알파벳 개수로 키 입력 수 계산
+    else {
+        totalKeystrokes = countKeystrokesEnglish(userInput);
+    }
+
+    // KPM 계산 및 출력 (2자 이상 입력했을 때만)
     if (startTime && totalKeystrokes > 1) {
         kpm = calculateKPM(totalKeystrokes, startTime);
         kpmElement.innerText = `${kpm}`;
