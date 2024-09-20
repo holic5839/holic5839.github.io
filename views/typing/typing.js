@@ -212,8 +212,17 @@ const record = document.getElementById('record');
 
 let kpm = 0;
 
+const savedMode = localStorage.getItem('theme');
+
+if (savedMode) {
+    document.body.classList.toggle('dark-mode', savedMode === 'dark');
+}
+
 function changeTheme() {
-    console.log('테마변경');
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    const theme = isDarkMode ? 'dark' : 'light';
+
+    localStorage.setItem('theme', theme);
 }
 
 function shuffle(array) {

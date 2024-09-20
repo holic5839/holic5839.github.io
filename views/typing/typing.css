@@ -1,5 +1,5 @@
 /* 플랫 디자인 스타일 */
-body {
+body.dark-mode {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,23 +10,139 @@ body {
     background-color: #2d2d2d;
 }
 
-div {
+.dark-mode div {
     color: #fff;
     box-sizing: border-box;
 }
 
-h1 {
+.dark-mode h1 {
     font-size: 32px;
     color: #fff;
 }
 
-input[type='text'] {
+.dark-mode input[type='text'] {
     padding: 15px 15px 15px 0;
     width: 100%;
     font-size: 22px;
     color: #ffffff;
     background-color: inherit;
     border-bottom: 2px solid #fff;
+    border-radius: 4px;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.dark-mode input[type='text']:focus {
+    background-color: inherit;
+}
+
+.dark-mode .container {
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    min-height: 415px;
+    background-color: #333;
+    border-radius: 50px;
+}
+
+.dark-mode .title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    width: 100%;
+}
+
+.dark-mode .segment-wrapper {
+}
+
+.dark-mode .header-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.dark-mode .header-wrapper > div {
+    margin-bottom: 10px;
+}
+
+.dark-mode .kpm-wrapper,
+.dark-mode .record-wrapper,
+.dark-mode .elapsedTime-wrapper {
+    display: flex;
+}
+
+.dark-mode .kpm-wrapper > p,
+.dark-mode .record-wrapper > p,
+.dark-mode .elapsedTime-wrapper > p {
+    margin-right: 10px;
+    width: 65px;
+}
+
+.dark-mode #elapsedTime {
+    width: 63px;
+    text-align: end;
+}
+
+.dark-mode #kpm {
+    text-align: end;
+    width: 36px;
+}
+
+.dark-mode #textToType {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #aaa;
+}
+
+.dark-mode #record {
+    text-align: end;
+    width: 36px;
+}
+
+.dark-mode #result {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.dark-mode #result.success {
+    color: #4caf50;
+}
+
+.dark-mode #result.error {
+    color: #e57373;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+}
+
+div {
+    color: #000;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 32px;
+    color: #000;
+}
+
+input[type='text'] {
+    padding: 15px 15px 15px 0;
+    width: 100%;
+    font-size: 22px;
+    color: #000;
+    background-color: inherit;
+    border-bottom: 2px solid #000;
     border-radius: 4px;
     outline: none;
     transition: background-color 0.3s ease;
@@ -41,7 +157,7 @@ input[type='text']:focus {
     width: 100%;
     max-width: 600px;
     min-height: 415px;
-    background-color: #333;
+    background-color: #fff;
     border-radius: 50px;
 }
 
@@ -94,7 +210,7 @@ input[type='text']:focus {
 #textToType {
     font-size: 22px;
     margin-bottom: 20px;
-    color: #aaa;
+    color: #555;
 }
 
 #record {
@@ -113,122 +229,4 @@ input[type='text']:focus {
 
 #result.error {
     color: #e57373;
-}
-
-@media (prefers-color-scheme: light) {
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        font-family: 'Arial', sans-serif;
-        background-color: #f0f0f0;
-    }
-
-    div {
-        color: #000;
-        box-sizing: border-box;
-    }
-
-    h1 {
-        font-size: 32px;
-        color: #000;
-    }
-
-    input[type='text'] {
-        padding: 15px 15px 15px 0;
-        width: 100%;
-        font-size: 22px;
-        color: #000;
-        background-color: inherit;
-        border-bottom: 2px solid #000;
-        border-radius: 4px;
-        outline: none;
-        transition: background-color 0.3s ease;
-    }
-
-    input[type='text']:focus {
-        background-color: inherit;
-    }
-
-    .container {
-        padding: 40px;
-        width: 100%;
-        max-width: 600px;
-        min-height: 415px;
-        background-color: #fff;
-        border-radius: 50px;
-    }
-
-    .title-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 60px;
-        width: 100%;
-    }
-
-    .segment-wrapper {
-    }
-
-    .header-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-        margin-bottom: 30px;
-        width: 100%;
-    }
-
-    .header-wrapper > div {
-        margin-bottom: 10px;
-    }
-
-    .kpm-wrapper,
-    .record-wrapper,
-    .elapsedTime-wrapper {
-        display: flex;
-    }
-
-    .kpm-wrapper > p,
-    .record-wrapper > p,
-    .elapsedTime-wrapper > p {
-        margin-right: 10px;
-        width: 65px;
-    }
-
-    #elapsedTime {
-        width: 63px;
-        text-align: end;
-    }
-
-    #kpm {
-        text-align: end;
-        width: 36px;
-    }
-
-    #textToType {
-        font-size: 22px;
-        margin-bottom: 20px;
-        color: #555;
-    }
-
-    #record {
-        text-align: end;
-        width: 36px;
-    }
-
-    #result {
-        margin-top: 20px;
-        font-size: 20px;
-    }
-
-    #result.success {
-        color: #4caf50;
-    }
-
-    #result.error {
-        color: #e57373;
-    }
 }
