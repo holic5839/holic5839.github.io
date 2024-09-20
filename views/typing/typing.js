@@ -177,7 +177,6 @@ function calculateKPM(keystrokes, startTime) {
 // 타이핑 시작 시간 기록 및 KPM 업데이트
 inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
-
     if (userInput === '') {
         resetTimer(); // 입력이 없으면 타이머를 초기화
     } else if (!isTyping) {
@@ -198,23 +197,16 @@ inputText.addEventListener('input', (event) => {
 
 // Enter 키를 눌러 문장 확인
 inputText.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
+    if (event.keyCode === 13) {
         event.preventDefault(); // 기본 Enter 동작 차단
         const userInput = inputText.value.trim();
-
         if (userInput === sentences[currentSentenceIndex]) {
             result.innerText = '정확합니다!';
             result.className = 'success';
-
             // 다음 문장으로 이동
             currentSentenceIndex++;
-            if (currentSentenceIndex < sentences.length) {
-                updateSentence(); // 문장이 바뀔 때마다 시간과 타수 초기화
-            } else {
-                result.innerText = '모든 문장을 완료했습니다!';
-                inputText.disabled = true;
-                resetTimer(); // 모든 문장을 완료했을 때 시간 업데이트 중지
-            }
+            updateSentence();
+            inputText.value = '';
         } else {
             result.innerText = '틀렸습니다. 다시 시도해보세요.';
             result.className = 'error';
