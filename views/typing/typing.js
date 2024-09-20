@@ -227,10 +227,9 @@ function shuffle(array) {
 function updateSentence() {
     textToTypeElement.innerText = shuffle(sentences)[currentSentenceIndex];
     resetTimer(); // 새로운 문장 시작 시 타이머 초기화
-    resetKpm();
     inputText.value = ''; // 입력창 초기화
     totalKeystrokes = 0; // 타수 초기화
-    kpmElement.innerText = ''; // KPM 초기화
+    kpmElement.innerText = '0'; // KPM 초기화
     result.innerText = ''; // 결과 초기화
     inputText.disabled = false; // 입력창 활성화
     isTyping = false; // 타이핑 중 상태 초기화
@@ -307,7 +306,7 @@ inputText.addEventListener('keydown', (event) => {
         if (userInput === sentences[currentSentenceIndex]) {
             result.innerText = '정확합니다!';
             result.className = 'success';
-            record.innerText = Number(record.innerText) > kpm ? record.innerText : kpm;
+            record.innerText = Number(record.innerText) >= kpm ? record.innerText : kpm;
             // 다음 문장으로 이동
             currentSentenceIndex++;
             updateSentence();
