@@ -134,7 +134,7 @@ function updateSentence() {
     resetTimer(); // 새로운 문장 시작 시 타이머 초기화
     inputText.value = ''; // 입력창 초기화
     totalKeystrokes = 0; // 타수 초기화
-    kpmElement.innerText = '0타 / 분'; // KPM 초기화
+    kpmElement.innerText = ''; // KPM 초기화
     result.innerText = ''; // 결과 초기화
     inputText.disabled = false; // 입력창 활성화
     isTyping = false; // 타이핑 중 상태 초기화
@@ -143,7 +143,7 @@ function updateSentence() {
 // 타이머 초기화 함수
 function resetTimer() {
     if (intervalId) clearInterval(intervalId); // 타이머가 있으면 중지
-    elapsedTimeElement.innerText = '0.00초'; // 경과 시간 초기화
+    elapsedTimeElement.innerText = '0.00'; // 경과 시간 초기화
     startTime = null; // 시작 시간 초기화
     isTyping = false; // 타이핑 상태 초기화
 }
@@ -162,7 +162,7 @@ function updateElapsedTime() {
     const seconds = Math.floor(elapsedTimeInSeconds);
     const milliseconds = Math.floor((elapsedTimeInMilliseconds % 1000) / 10); // 밀리초를 10ms 단위로 변환
 
-    elapsedTimeElement.innerText = `${seconds}.${milliseconds.toString().padStart(2, '0')}초`;
+    elapsedTimeElement.innerText = `${seconds}.${milliseconds.toString().padStart(2, '0')}`;
 }
 
 // 한글 자모 단위로 분리하여 키 입력 수 계산하는 함수
@@ -194,7 +194,7 @@ inputText.addEventListener('input', (event) => {
     // KPM 계산 및 출력 (2번 이상 키 입력했을 때만)
     if (startTime && totalKeystrokes > 1) {
         kpm = calculateKPM(totalKeystrokes, startTime);
-        kpmElement.innerText = `${kpm}타 / 분`;
+        kpmElement.innerText = `${kpm}`;
     }
 });
 

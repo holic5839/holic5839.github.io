@@ -16,29 +16,28 @@ div {
 }
 
 h1 {
-    margin-bottom: 60px;
+    margin: 0 auto 60px;
     font-size: 32px;
     color: #fff;
 }
 
 input[type='text'] {
-    padding: 15px;
+    padding: 15px 15px 15px 0;
     width: 100%;
-    font-size: 20px;
+    font-size: 22px;
     color: #ffffff;
-    background-color: #444;
-    border: none;
+    background-color: inherit;
+    border-bottom: 2px solid #fff;
     border-radius: 4px;
     outline: none;
     transition: background-color 0.3s ease;
 }
 
 input[type='text']:focus {
-    background-color: #555;
+    background-color: inherit;
 }
 
 .container {
-    text-align: center;
     padding: 40px;
     width: 100%;
     max-width: 600px;
@@ -69,16 +68,17 @@ input[type='text']:focus {
 .record-wrapper > p,
 .elapsedTime-wrapper > p {
     margin-right: 10px;
+    width: 65px;
 }
 
 #elapsedTime {
-    width: 76px;
+    width: 63px;
     text-align: end;
 }
 
 #kpm {
     text-align: end;
-    width: 77px;
+    width: 36px;
 }
 
 #textToType {
