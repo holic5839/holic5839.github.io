@@ -55,6 +55,19 @@ input[type='text']:focus {
     width: 100%;
 }
 
+.kpm-wrapper {
+    display: flex;
+}
+
+.kpm-wrapper > p {
+    margin-right: 10px;
+}
+
+#kpm {
+    text-align: end;
+    width: 77px;
+}
+
 #textToType {
     font-size: 22px;
     margin-bottom: 20px;

@@ -131,7 +131,7 @@ function updateSentence() {
     resetTimer(); // 새로운 문장 시작 시 타이머 초기화
     inputText.value = ''; // 입력창 초기화
     totalKeystrokes = 0; // 타수 초기화
-    kpmElement.innerText = '현재 타수: 0타 / 분'; // KPM 초기화
+    kpmElement.innerText = '0타 / 분'; // KPM 초기화
     result.innerText = ''; // 결과 초기화
     inputText.disabled = false; // 입력창 활성화
     isTyping = false; // 타이핑 중 상태 초기화
@@ -191,7 +191,7 @@ inputText.addEventListener('input', (event) => {
     // KPM 계산 및 출력 (2번 이상 키 입력했을 때만)
     if (startTime && totalKeystrokes > 1) {
         const kpm = calculateKPM(totalKeystrokes, startTime);
-        kpmElement.innerText = `현재 타수: ${kpm}타 / 분`;
+        kpmElement.innerText = `${kpm}타 / 분`;
     }
 });
 
