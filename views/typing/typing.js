@@ -102,6 +102,101 @@ const sentences = [
     '천리길도 한 걸음부터',
 ];
 
+const sentences2 = [
+    'A bird in the hand is worth two in the bush',
+    'A blessing in disguise',
+    'A penny saved is a penny earned',
+    'Actions speak louder than words',
+    'A picture is worth a thousand words',
+    'A stitch in time saves nine',
+    'All good things come to those who wait',
+    'All is fair in love and war',
+    'An apple a day keeps the doctor away',
+    'Barking dogs seldom bite',
+    'Beauty is in the eye of the beholder',
+    'Better late than never',
+    'Birds of a feather flock together',
+    'Cleanliness is next to godliness',
+    "Don't bite the hand that feeds you",
+    "Don't count your chickens before they hatch",
+    "Don't cry over spilled milk",
+    "Don't put all your eggs in one basket",
+    'Every cloud has a silver lining',
+    'Familiarity breeds contempt',
+    'Good things come to those who wait',
+    'Haste makes waste',
+    'Honesty is the best policy',
+    "If it ain't broke, don't fix it",
+    'Ignorance is bliss',
+    'It takes two to tango',
+    'Jack of all trades, master of none',
+    'Laughter is the best medicine',
+    'Look before you leap',
+    "Money can't buy happiness",
+    'No pain, no gain',
+    'Out of sight, out of mind',
+    'Practice makes perfect',
+    "Rome wasn't built in a day",
+    'The early bird catches the worm',
+    'The grass is always greener on the other side',
+    'The pen is mightier than the sword',
+    'The squeaky wheel gets the grease',
+    "There's no place like home",
+    "Time flies when you're having fun",
+    'Too many cooks spoil the broth',
+    'Two heads are better than one',
+    'When in Rome, do as the Romans do',
+    'When the going gets tough, the tough get going',
+    "You can't have your cake and eat it too",
+    "You can't judge a book by its cover",
+    'A chain is only as strong as its weakest link',
+    'A friend in need is a friend indeed',
+    "A leopard can't change its spots",
+    'A rose by any other name would smell as sweet',
+    'All that glitters is not gold',
+    'An ounce of prevention is worth a pound of cure',
+    'Better safe than sorry',
+    'Birds of a feather flock together',
+    'Brevity is the soul of wit',
+    'Charity begins at home',
+    'Clean your room before you can clean the world',
+    'Curiosity killed the cat',
+    "Don't judge a man until you've walked a mile in his shoes",
+    "Don't put off until tomorrow what you can do today",
+    'Easier said than done',
+    'Fool me once, shame on you; fool me twice, shame on me',
+    'Good fences make good neighbors',
+    'He who laughs last laughs best',
+    "If you can't stand the heat, get out of the kitchen",
+    'In the land of the blind, the one-eyed man is king',
+    'It takes a village to raise a child',
+    'Jack and Jill went up the hill',
+    'Keep your friends close, but your enemies closer',
+    'Killing two birds with one stone',
+    'Lend your money and lose your friend',
+    'Look before you leap',
+    'Money talks',
+    'No use crying over spilt milk',
+    "One man's trash is another man's treasure",
+    'Out of the frying pan, into the fire',
+    'Practice what you preach',
+    'Raining cats and dogs',
+    'Silence is golden',
+    'Speak softly and carry a big stick',
+    "The apple doesn't fall far from the tree",
+    'The best things in life are free',
+    'The devil is in the details',
+    'The grass is always greener where you water it',
+    'The road to hell is paved with good intentions',
+    "There's no time like the present",
+    'To err is human, to forgive divine',
+    "Two wrongs don't make a right",
+    'What goes around comes around',
+    "You can lead a horse to water, but you can't make it drink",
+    "You can't make an omelet without breaking a few eggs",
+    'Your guess is as good as mine',
+];
+
 let currentSentenceIndex = 0;
 let startTime; // 타이핑 시작 시간
 let totalKeystrokes = 0; // 입력된 총 키스트로크 수
@@ -132,6 +227,7 @@ function shuffle(array) {
 function updateSentence() {
     textToTypeElement.innerText = shuffle(sentences)[currentSentenceIndex];
     resetTimer(); // 새로운 문장 시작 시 타이머 초기화
+    resetKpm();
     inputText.value = ''; // 입력창 초기화
     totalKeystrokes = 0; // 타수 초기화
     kpmElement.innerText = ''; // KPM 초기화
@@ -146,6 +242,10 @@ function resetTimer() {
     elapsedTimeElement.innerText = '0.00'; // 경과 시간 초기화
     startTime = null; // 시작 시간 초기화
     isTyping = false; // 타이핑 상태 초기화
+}
+
+function resetKpm() {
+    kpmElement.innerText = '0';
 }
 
 // 타이머 시작 함수
@@ -182,6 +282,7 @@ inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
     if (userInput === '') {
         resetTimer(); // 입력이 없으면 타이머를 초기화
+        resetKpm();
     } else if (!isTyping) {
         // 타이핑이 시작되면 타이머를 시작
         startTimer();
