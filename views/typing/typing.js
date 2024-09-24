@@ -216,7 +216,7 @@ let kpm = 0;
 const savedMode = localStorage.getItem('theme');
 const language = localStorage.getItem('language');
 
-const sentences = language === 'korean' ? sentencesKorean : sentencesEnglish;
+const sentences = language === 'english' ? sentencesEnglish : sentencesKorean;
 
 if (savedMode) {
     document.body.classList.toggle('dark-mode', savedMode === 'dark');
