@@ -91,13 +91,14 @@ body.dark-mode {
 .dark-mode .record-wrapper,
 .dark-mode .elapsedTime-wrapper {
     display: flex;
+    width: 170px;
 }
 
 .dark-mode .kpm-wrapper > p,
 .dark-mode .record-wrapper > p,
 .dark-mode .elapsedTime-wrapper > p {
     margin-right: 10px;
-    width: 65px;
+    width: 75px;
 }
 
 .dark-mode #elapsedTime {
