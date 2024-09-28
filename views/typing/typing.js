@@ -249,9 +249,16 @@ function shuffle(array) {
     return array;
 }
 
+function wrapEachCharacterWithSpan(text) {
+    return text
+      .split('')
+      .map(char => `<span>${char}</span>`)
+      .join('');
+}
+
 // 현재 문장을 화면에 표시
 function updateSentence() {
-    textToTypeElement.innerText = shuffle(sentences)[currentSentenceIndex];
+    textToTypeElement.innerHTML = wrapEachCharacterWithSpan(shuffle(sentences)[currentSentenceIndex]);
     resetTimer(); // 새로운 문장 시작 시 타이머 초기화
     inputText.value = ''; // 입력창 초기화
     totalKeystrokes = 0; // 타수 초기화
