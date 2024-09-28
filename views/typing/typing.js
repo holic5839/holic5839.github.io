@@ -312,9 +312,19 @@ function isKorean(text) {
     return /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
 }
 
+function resetText(event) {
+    if (event.keyCode === 27) {
+        inputText.value = '';
+        resetTimer();
+        resetKpm();
+    }
+}
+
 // 타이핑 시작 시간 기록 및 KPM 업데이트
 inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
+    let totalKeystrokes;
+
     if (userInput === '') {
         resetTimer(); // 입력이 없으면 타이머를 초기화
         resetKpm();
@@ -323,8 +333,6 @@ inputText.addEventListener('input', (event) => {
         startTimer();
         isTyping = true;
     }
-
-    let totalKeystrokes;
 
     // 한글이면 자모 분리 후 키 입력 수 계산
     if (isKorean(userInput)) {
@@ -344,6 +352,8 @@ inputText.addEventListener('input', (event) => {
 
 // Enter 키를 눌러 문장 확인
 inputText.addEventListener('keydown', (event) => {
+    // ESC를 누르면 입력창 초기화
+    resetText(event);
     if (event.keyCode === 13) {
         event.preventDefault(); // 기본 Enter 동작 차단
         const userInput = inputText.value.trim();
