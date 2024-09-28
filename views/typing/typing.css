@@ -172,6 +172,10 @@ input[type='text']:focus {
     background-color: inherit;
 }
 
+.wrong {
+    color: red;
+}
+
 .container {
     padding: 40px;
     width: 100%;

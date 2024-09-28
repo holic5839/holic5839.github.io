@@ -327,6 +327,28 @@ function resetText(event) {
     }
 }
 
+// 문자열 비교
+function compareStrings(str1, str2) {
+    const minLength = Math.min(str1.length, str2.length);
+    const diffIndices = [];
+  
+    for (let i = 0; i < minLength; i++) {
+      if (str1[i] !== str2[i]) {
+        diffIndices.push(i); // 다른 인덱스를 저장
+      }
+    }
+  
+    // 길이가 다르면, 더 긴 문자열의 나머지 부분도 차이로 간주
+    if (str1.length !== str2.length) {
+      for (let i = minLength; i < Math.max(str1.length, str2.length); i++) {
+        diffIndices.push(i);
+      }
+    }
+  
+    // 다른 인덱스가 없으면 -1 반환, 있으면 인덱스 배열 반환
+    return diffIndices.length > 0 ? diffIndices : -1;
+  }
+
 // 타이핑 시작 시간 기록 및 KPM 업데이트
 inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
@@ -363,8 +385,10 @@ inputText.addEventListener('keydown', (event) => {
     resetText(event);
     if (event.keyCode === 13) {
         event.preventDefault(); // 기본 Enter 동작 차단
+
         const userInput = inputText.value.trim();
-        if (userInput === sentences[currentSentenceIndex]) {
+        
+        if (compareStrings(userInput, sentences[currentSentenceIndex]) == -1) {
             result.innerText = '정확합니다!';
             result.className = 'success';
             record.innerText = Number(record.innerText) >= kpm ? record.innerText : kpm;
@@ -373,6 +397,19 @@ inputText.addEventListener('keydown', (event) => {
             updateSentence();
             inputText.value = '';
         } else {
+            const wrongArray = compareStrings(inputText.value.trim(), sentences[currentSentenceIndex]);
+
+            wrongArray.forEach(element => {
+                textToTypeElement.children[element].className = 'wrong'
+            });
+
+            for (let i = 0; i < textToTypeElement.children.length; i++) {
+                if (!wrongArray.includes(i)) {
+                    // wrongArray에 포함되지 않는, 즉 맞게 입력된 문자는 wrong 클래스 제거
+                    textToTypeElement.children[i].classList.remove('wrong');
+                }
+            }
+
             result.innerText = '틀렸습니다. 다시 시도해보세요.';
             result.className = 'error';
         }
