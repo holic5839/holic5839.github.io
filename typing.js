@@ -360,6 +360,9 @@ inputText.addEventListener('input', (event) => {
     if (userInput === '') {
         resetTimer(); // 입력이 없으면 타이머를 초기화
         resetKpm();
+        for (let i = 0; i < textToTypeElement.children.length; i++) {
+            textToTypeElement.children[i].classList.remove('wrong')
+        }
     } else if (!isTyping) {
         // 타이핑이 시작되면 타이머를 시작
         startTimer();
