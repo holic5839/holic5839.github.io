@@ -36,6 +36,10 @@ body.dark-mode {
     background-color: inherit;
 }
 
+.dark-mode .wrong {
+    color: red;
+}
+
 .dark-mode .container {
     padding: 40px;
     width: 100%;
@@ -102,7 +106,8 @@ body.dark-mode {
 }
 
 .dark-mode #elapsedTime {
-    width: 63px;
+    margin-right: 7px;
+    width: 58px;
     text-align: end;
 }
 
@@ -231,17 +236,19 @@ input[type='text']:focus {
 .record-wrapper,
 .elapsedTime-wrapper {
     display: flex;
+    width: 170px;
 }
 
 .kpm-wrapper > p,
 .record-wrapper > p,
 .elapsedTime-wrapper > p {
     margin-right: 10px;
-    width: 65px;
+    width: 75px;
 }
 
 #elapsedTime {
-    width: 63px;
+    margin-right: 7px;
+    width: 58px;
     text-align: end;
 }
 
