@@ -92,6 +92,7 @@ body.dark-mode {
 }
 
 .dark-mode .kpm-wrapper,
+.dark-mode .prev-wrapper,
 .dark-mode .record-wrapper,
 .dark-mode .elapsedTime-wrapper {
     display: flex;
@@ -99,6 +100,7 @@ body.dark-mode {
 }
 
 .dark-mode .kpm-wrapper > p,
+.dark-mode .prev-wrapper > p,
 .dark-mode .record-wrapper > p,
 .dark-mode .elapsedTime-wrapper > p {
     margin-right: 10px;
@@ -112,6 +114,11 @@ body.dark-mode {
 }
 
 .dark-mode #kpm {
+    text-align: end;
+    width: 36px;
+}
+
+.dark-mode #prev {
     text-align: end;
     width: 36px;
 }
@@ -233,6 +240,7 @@ input[type='text']:focus {
 }
 
 .kpm-wrapper,
+.prev-wrapper,
 .record-wrapper,
 .elapsedTime-wrapper {
     display: flex;
@@ -240,6 +248,7 @@ input[type='text']:focus {
 }
 
 .kpm-wrapper > p,
+.prev-wrapper > p,
 .record-wrapper > p,
 .elapsedTime-wrapper > p {
     margin-right: 10px;
@@ -253,6 +262,11 @@ input[type='text']:focus {
 }
 
 #kpm {
+    text-align: end;
+    width: 36px;
+}
+
+#prev {
     text-align: end;
     width: 36px;
 }

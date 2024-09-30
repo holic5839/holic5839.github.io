@@ -208,7 +208,8 @@ const inputText = document.getElementById('inputText');
 const result = document.getElementById('result');
 const kpmElement = document.getElementById('kpm');
 const elapsedTimeElement = document.getElementById('elapsedTime');
-const record = document.getElementById('record');
+const prevElement = document.getElementById('prev');
+const recordElement = document.getElementById('record');
 
 let kpm = 0;
 
@@ -415,7 +416,8 @@ inputText.addEventListener('keyup', (event) => {
         if (compareStrings(userInput, targetSentence) == -1) {
             result.innerText = '정확합니다!';
             result.className = 'success';
-            record.innerText = Number(record.innerText) >= kpm ? record.innerText : kpm;
+            recordElement.innerText = Number(recordElement.innerText) >= kpm ? recordElement.innerText : kpm;
+            prevElement.innerText = kpm;
             // 다음 문장으로 이동
             currentSentenceIndex++;
             updateSentence();
