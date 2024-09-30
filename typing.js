@@ -321,6 +321,9 @@ function isKorean(text) {
 
 function resetText(event) {
     if (event.keyCode === 27) {
+        for (let i = 0; i < textToTypeElement.children.length; i++) {
+            textToTypeElement.children[i].classList.remove('wrong')
+        }
         inputText.value = '';
         resetTimer();
         resetKpm();
@@ -347,7 +350,7 @@ function compareStrings(str1, str2) {
   
     // 다른 인덱스가 없으면 -1 반환, 있으면 인덱스 배열 반환
     return diffIndices.length > 0 ? diffIndices : -1;
-  }
+}
 
 // 타이핑 시작 시간 기록 및 KPM 업데이트
 inputText.addEventListener('input', (event) => {
@@ -379,16 +382,34 @@ inputText.addEventListener('input', (event) => {
     }
 });
 
-// Enter 키를 눌러 문장 확인
-inputText.addEventListener('keydown', (event) => {
+inputText.addEventListener('keyup', (event) => {
     // ESC를 누르면 입력창 초기화
     resetText(event);
-    if (event.keyCode === 13) {
-        event.preventDefault(); // 기본 Enter 동작 차단
+    event.preventDefault(); // 기본 Enter 동작 차단
 
-        const userInput = inputText.value.trim();
-        
-        if (compareStrings(userInput, sentences[currentSentenceIndex]) == -1) {
+    const userInput = inputText.value; // trim() 제거하여 띄어쓰기도 비교에 포함
+    const currentLength = userInput.length;
+    const targetSentence = sentences[currentSentenceIndex];
+
+    // 이전 글자에 대한 검증 (현재 글자 입력 후 직전 글자 검증)
+    if (currentLength > 1) { // 입력이 하나 이상일 때만 직전 글자를 확인
+        const prevIndex = currentLength - 2; // 직전 글자의 인덱스
+        if (userInput[prevIndex] !== targetSentence[prevIndex]) {
+            textToTypeElement.children[prevIndex].className = 'wrong'; // 직전 글자 오타 시 wrong 추가
+        } else {
+            textToTypeElement.children[prevIndex].classList.remove('wrong'); // 올바르면 wrong 제거
+        }
+    }
+
+    // 백스페이스로 글자를 지울 때 'wrong' 클래스 제거
+    if (event.keyCode === 8 && currentLength > 0) {
+        const lastTypedIndex = currentLength - 1; // 지운 글자의 인덱스
+        textToTypeElement.children[lastTypedIndex].classList.remove('wrong');
+    }
+
+    // Enter 키로 문장 확인
+    if (event.keyCode === 13) {
+        if (compareStrings(userInput, targetSentence) == -1) {
             result.innerText = '정확합니다!';
             result.className = 'success';
             record.innerText = Number(record.innerText) >= kpm ? record.innerText : kpm;
@@ -397,24 +418,14 @@ inputText.addEventListener('keydown', (event) => {
             updateSentence();
             inputText.value = '';
         } else {
-            const wrongArray = compareStrings(inputText.value.trim(), sentences[currentSentenceIndex]);
-
-            wrongArray.forEach(element => {
-                textToTypeElement.children[element].className = 'wrong'
-            });
-
-            for (let i = 0; i < textToTypeElement.children.length; i++) {
-                if (!wrongArray.includes(i)) {
-                    // wrongArray에 포함되지 않는, 즉 맞게 입력된 문자는 wrong 클래스 제거
-                    textToTypeElement.children[i].classList.remove('wrong');
-                }
-            }
-
             result.innerText = '틀렸습니다. 다시 시도해보세요.';
             result.className = 'error';
         }
     }
 });
+
+
+
 
 // 페이지 로드 시 첫 번째 문장 설정
 updateSentence();
