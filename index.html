@@ -9,6 +9,7 @@
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-PTFSBGN8');
         </script>
+        <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
         <!-- End Google Tag Manager -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +30,7 @@
         <div class="title-wrapper">
             <h1>Typing Today</h1>
             <div class="segment-wrapper">
-                <div style="cursor: not-allowed;">테마 변경</div>
+                <div onclick="changeTheme()">테마 변경</div>
                 <div onclick="changeLanguage()">언어 변경</div>
             </div>
         </div>
@@ -41,24 +42,23 @@
             </div>
             <div class="component-wrapper">
                 <div class="elapsedTime-wrapper">
-                    <p>경과 시간:</p>
+                    <p>경과 시간</p>
                     <div id="elapsedTime"></div>
-                    <span>초</span>
                 </div>
                 <div class="kpm-wrapper">
-                    <p>현재 타수:</p>
-                    <div id="kpm"></div>
-                    <span>타 / 분</span>
+                    <p>현재 타수</p>
+                    <div id='currentGauge'></div>
+                    <div id="kpm" style="display: none;"></div>
                 </div>
                 <div class="prev-wrapper">
-                    <p>이전 타수:</p>
-                    <div id="prev">0</div>
-                    <span>타 / 분</span>
+                    <p>이전 타수</p>
+                     <div id='prevGauge'></div>
+                    <div id="prev" style="display: none;">0</div>
                 </div>
                 <div class="record-wrapper">
-                    <p>최고 타수:</p>
-                    <div id="record">0</div>
-                    <span>타 / 분</span>
+                    <p>최고 타수</p>
+                    <div id='recordGauge'></div>
+                    <div id="record" style="display: none;">0</div>
                 </div>
             </div>
         </div>

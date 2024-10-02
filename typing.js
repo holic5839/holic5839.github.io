@@ -202,16 +202,14 @@ let startTime; // 타이핑 시작 시간
 let totalKeystrokes = 0; // 입력된 총 키스트로크 수
 let intervalId; // setInterval ID
 let isTyping = false; // 사용자가 타이핑 중인지 여부
+let kpm = 0;
 
 const textToTypeElement = document.getElementById('textToType');
 const inputText = document.getElementById('inputText');
 const result = document.getElementById('result');
 const kpmElement = document.getElementById('kpm');
 const elapsedTimeElement = document.getElementById('elapsedTime');
-const prevElement = document.getElementById('prev');
 const recordElement = document.getElementById('record');
-
-let kpm = 0;
 
 // 테마, 언어변경용 변수
 const savedMode = localStorage.getItem('theme');
@@ -228,6 +226,17 @@ function changeTheme() {
     const theme = isDarkMode ? 'dark' : 'light';
 
     localStorage.setItem('theme', theme);
+
+    drawGaugeGraph('currentGauge', 0, theme);
+    drawGaugeGraph('prevGauge', kpm, theme);
+    drawGaugeGraph('recordGauge', recordElement.innerText, theme);
+
+    for (let i = 0; i < textToTypeElement.children.length; i++) {
+        textToTypeElement.children[i].classList.remove('wrong')
+    }
+    inputText.value = '';
+    resetTimer();
+    resetKpm();
 }
 
 function changeLanguage() {
@@ -284,7 +293,7 @@ function resetKpm() {
 // 타이머 시작 함수
 function startTimer() {
     startTime = Date.now();
-    intervalId = setInterval(updateElapsedTime, 100); // 100ms마다 시간 업데이트
+    intervalId = setInterval(updateElapsedTime, 10); // 100ms마다 시간 업데이트
 }
 
 // 경과 시간 업데이트 함수 (소숫점 2째자리까지 표시, 밀리초 포함)
@@ -353,10 +362,40 @@ function compareStrings(str1, str2) {
     return diffIndices.length > 0 ? diffIndices : -1;
 }
 
+function drawGaugeGraph(id, value, theme) {
+    const data = [
+        {
+          type: "indicator",
+          mode: "gauge+number",
+          value: value,
+          title: { text: "", font: { size: 24 } },
+          gauge: {
+            axis: { range: [null, 1500], tickvals: [], ticktext: [] , tickwidth: 0, tickcolor: "darkblue" },
+            bar: { color: theme === 'dark' ? "white" : "black" },
+            bgcolor: "transparent",
+            borderwidth: 1,
+            bordercolor: theme === 'dark' ? "white" : "black",
+          }
+        }
+      ];
+    
+    const layout = {
+        width: 120,
+        height: 120,
+        margin: { t: 25, r: 25, l: 25, b: 25 },
+        paper_bgcolor: "transparent",
+        font: { color: theme === 'dark' ? "white" : "black" }
+    };
+    Plotly.newPlot(id, data, layout);
+}
+
 // 타이핑 시작 시간 기록 및 KPM 업데이트
 inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
+    const inputSavedMode = localStorage.getItem('theme');
     let totalKeystrokes;
+
+    drawGaugeGraph('currentGauge', kpm, inputSavedMode);
 
     if (userInput === '') {
         resetTimer(); // 입력이 없으면 타이머를 초기화
@@ -387,6 +426,7 @@ inputText.addEventListener('input', (event) => {
 });
 
 inputText.addEventListener('keyup', (event) => {
+    const inputSavedMode = localStorage.getItem('theme');
     // ESC를 누르면 입력창 초기화
     resetText(event);
     event.preventDefault(); // 기본 Enter 동작 차단
@@ -414,10 +454,16 @@ inputText.addEventListener('keyup', (event) => {
     // Enter 키로 문장 확인
     if (event.keyCode === 13) {
         if (compareStrings(userInput, targetSentence) == -1) {
+            const recordValue = Number(recordElement.innerText) >= kpm ? recordElement.innerText : kpm;
+
+            recordElement.innerText = recordValue;
+
             result.innerText = '정확합니다!';
             result.className = 'success';
-            recordElement.innerText = Number(recordElement.innerText) >= kpm ? recordElement.innerText : kpm;
-            prevElement.innerText = kpm;
+
+            drawGaugeGraph('recordGauge', recordValue, inputSavedMode);
+            drawGaugeGraph('prevGauge', kpm, inputSavedMode);
+
             // 다음 문장으로 이동
             currentSentenceIndex++;
             updateSentence();
@@ -434,3 +480,6 @@ inputText.addEventListener('keyup', (event) => {
 
 // 페이지 로드 시 첫 번째 문장 설정
 updateSentence();
+drawGaugeGraph('currentGauge', 0, savedMode);
+drawGaugeGraph('prevGauge', 0, savedMode);
+drawGaugeGraph('recordGauge', 0, savedMode);
