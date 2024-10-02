@@ -40,11 +40,18 @@ body.dark-mode {
     color: red;
 }
 
-.dark-mode .container {
-    padding: 40px;
+.dark-mode .body-container {
+    display: flex;
+    max-width: 800px;
     width: 100%;
-    max-width: 600px;
-    min-height: 355px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dark-mode .body-wrapper {
+    padding: 40px;
+    flex: 0.68;
+    min-height: 210px;
     background-color: #2f3349;
     border-radius: 15px;
 }
@@ -54,7 +61,7 @@ body.dark-mode {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
-    max-width: 600px;
+    max-width: 800px;
     width: 100%;
 }
 
@@ -63,8 +70,10 @@ body.dark-mode {
 }
 
 .dark-mode .segment-wrapper div {
-    margin-right: 10px;
+    text-align: center;
+    margin-right: 15px;
     padding: 5px 10px;
+    width: 100px;
     border: 1px solid #fff;
     border-radius: 10px;
     cursor: pointer;
@@ -80,24 +89,40 @@ body.dark-mode {
     transition: all 0.5s;
 }
 
-.dark-mode .header-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    margin-bottom: 30px;
-    width: 100%;
+.dark-mode .component-wrapper {
+    flex: 0.3;
 }
 
-.dark-mode .header-wrapper > div {
-    margin-bottom: 10px;
+.dark-mode .component-wrapper > div {
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .dark-mode .kpm-wrapper,
 .dark-mode .prev-wrapper,
 .dark-mode .record-wrapper,
 .dark-mode .elapsedTime-wrapper {
-    display: flex;
-    width: 170px;
+    display: inline-block;
+    margin-right: 10px;
+    background-color: #2f3349;
+    width: 100px;
+    height: 100px;
+    vertical-align: top;
+}
+
+.dark-mode .kpm-wrapper,
+.dark-mode .elapsedTime-wrapper {
+    margin-bottom: 10px;
+}
+
+.dark-mode .kpm-wrapper,
+.dark-mode .record-wrapper {
+    margin-right: 0;
+}
+
+.dark-mode .prev-wrapper,
+.dark-mode .record-wrapper {
+    margin-bottom: 0;
 }
 
 .dark-mode .kpm-wrapper > p,
@@ -105,23 +130,26 @@ body.dark-mode {
 .dark-mode .record-wrapper > p,
 .dark-mode .elapsedTime-wrapper > p {
     margin-right: 10px;
+    margin-bottom: 30px;
     width: 75px;
 }
 
 .dark-mode #elapsedTime {
-    margin-right: 7px;
-    width: 58px;
+    display: inline-block;
+    width: 55px;
     text-align: end;
 }
 
 .dark-mode #kpm {
+    display: inline-block;
+    width: 30px;
     text-align: end;
-    width: 36px;
 }
 
 .dark-mode #prev {
+    display: inline-block;
+    width: 30px;
     text-align: end;
-    width: 36px;
 }
 
 .dark-mode #textToType {
@@ -131,8 +159,9 @@ body.dark-mode {
 }
 
 .dark-mode #record {
+    display: inline-block;
+    width: 30px;
     text-align: end;
-    width: 36px;
 }
 
 .dark-mode #result {
@@ -145,154 +174,5 @@ body.dark-mode {
 }
 
 .dark-mode #result.error {
-    color: #e57373;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-}
-
-div {
-    color: #000;
-    box-sizing: border-box;
-}
-
-h1 {
-    font-size: 32px;
-    color: #000;
-}
-
-input[type='text'] {
-    padding: 15px 15px 15px 0;
-    width: 100%;
-    font-size: 22px;
-    color: #000;
-    background-color: inherit;
-    border-bottom: 2px solid #000;
-    outline: none;
-    transition: background-color 0.3s ease;
-}
-
-input[type='text']:focus {
-    background-color: inherit;
-}
-
-.wrong {
-    color: red;
-}
-
-.container {
-    padding: 40px;
-    width: 100%;
-    max-width: 600px;
-    min-height: 355px;
-    background-color: #fff;
-    border-radius: 15px;
-}
-
-.title-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    max-width: 600px;
-    width: 100%;
-}
-
-.segment-wrapper {
-    display: flex;
-}
-
-.segment-wrapper div {
-    margin-right: 10px;
-    padding: 5px 10px;
-    border: 1px solid #000;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.segment-wrapper div:last-child {
-    margin-right: 0;
-}
-
-.segment-wrapper div:hover {
-    color: #cfcde4;
-    background-color: #000;
-    transition: all 0.5s;
-}
-
-.header-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    margin-bottom: 30px;
-    width: 100%;
-}
-
-.header-wrapper > div {
-    margin-bottom: 10px;
-}
-
-.kpm-wrapper,
-.prev-wrapper,
-.record-wrapper,
-.elapsedTime-wrapper {
-    display: flex;
-    width: 170px;
-}
-
-.kpm-wrapper > p,
-.prev-wrapper > p,
-.record-wrapper > p,
-.elapsedTime-wrapper > p {
-    margin-right: 10px;
-    width: 75px;
-}
-
-#elapsedTime {
-    margin-right: 7px;
-    width: 58px;
-    text-align: end;
-}
-
-#kpm {
-    text-align: end;
-    width: 36px;
-}
-
-#prev {
-    text-align: end;
-    width: 36px;
-}
-
-#textToType {
-    font-size: 22px;
-    margin-bottom: 20px;
-    color: #555;
-}
-
-#record {
-    text-align: end;
-    width: 36px;
-}
-
-#result {
-    margin-top: 20px;
-    font-size: 20px;
-}
-
-#result.success {
-    color: #4caf50;
-}
-
-#result.error {
     color: #e57373;
 }

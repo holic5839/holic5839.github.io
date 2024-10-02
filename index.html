@@ -29,12 +29,17 @@
         <div class="title-wrapper">
             <h1>Typing Today</h1>
             <div class="segment-wrapper">
-                <div onclick="changeTheme()">테마 변경</div>
+                <div style="cursor: not-allowed;">테마 변경</div>
                 <div onclick="changeLanguage()">언어 변경</div>
             </div>
         </div>
-        <div class="container">
-            <div class="header-wrapper">
+        <div class="body-container">
+            <div class="body-wrapper">
+                <p id="textToType"></p>
+                <input type="text" id="inputText" placeholder="" autocomplete="off" autofocus="true" />
+                <div id="result"></div>
+            </div>
+            <div class="component-wrapper">
                 <div class="elapsedTime-wrapper">
                     <p>경과 시간:</p>
                     <div id="elapsedTime"></div>
@@ -56,12 +61,9 @@
                     <span>타 / 분</span>
                 </div>
             </div>
-            <p id="textToType"></p>
-            <input type="text" id="inputText" placeholder="" autocomplete="off" autofocus="true" />
-            <div id="result"></div>
         </div>
-        <script src="script.js"></script>
     </body>
+    <script src="script.js"></script>
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTFSBGN8"
