@@ -120,6 +120,19 @@ input[type='text']:focus {
     width: calc(100% - 30px - 30px);
 }
 
+.svg-container {
+    display: flex;
+}
+
+.svg-wrapper {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.svg-wrapper:last-child {
+    margin-right: 0px;
+}
+
 .segment-wrapper div {
     text-align: center;
     margin-bottom: 15px;
