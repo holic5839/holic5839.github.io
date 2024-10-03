@@ -29,17 +29,9 @@
     <body class="dark-mode">
         <div class="title-wrapper">
             <h1>Typing Today</h1>
-            <div class="segment-wrapper">
-                <div onclick="changeTheme()">테마 변경</div>
-                <div onclick="changeLanguage()">언어 변경</div>
-            </div>
+            <img src="assets/icn-setting.svg" alt="SVG Image">
         </div>
         <div class="body-container">
-            <div class="body-wrapper">
-                <p id="textToType"></p>
-                <input type="text" id="inputText" placeholder="" autocomplete="off" autofocus="true" />
-                <div id="result"></div>
-            </div>
             <div class="component-wrapper">
                 <div class="elapsedTime-wrapper">
                     <p>경과 시간</p>
@@ -60,6 +52,15 @@
                     <div id='recordGauge'></div>
                     <div id="record" style="display: none;">0</div>
                 </div>
+                <div class="segment-wrapper">
+                    <div onclick="changeTheme()">테마</div>
+                    <div onclick="changeLanguage()">언어</div>
+                </div>
+            </div>
+            <div class="body-wrapper">
+                <p id="textToType"></p>
+                <input type="text" id="inputText" placeholder="" autocomplete="off" autofocus="true" />
+                <div id="result"></div>
             </div>
         </div>
     </body>

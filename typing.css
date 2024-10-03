@@ -29,6 +29,7 @@ body.dark-mode {
     background-color: #fff;
 }
 
+.dark-mode .segment-wrapper,
 .dark-mode .kpm-wrapper,
 .dark-mode .prev-wrapper,
 .dark-mode .record-wrapper,
@@ -95,45 +96,38 @@ input[type='text']:focus {
 
 .body-container {
     display: flex;
-    max-width: 800px;
+    max-width: 560px;
     width: 100%;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
 }
 
 .body-wrapper {
     padding: 40px;
-    flex: 0.68;
     min-height: 210px;
     background-color: #fff;
     border-radius: 15px;
 }
 
 .title-wrapper {
+    position: fixed;
+    top: 30px;
+    left: 30px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 15px;
-    max-width: 800px;
-    width: 100%;
-}
-
-.segment-wrapper {
-    display: flex;
+    align-items: center;
+    width: calc(100% - 30px - 30px);
 }
 
 .segment-wrapper div {
     text-align: center;
-    margin-right: 15px;
-    padding: 5px 10px;
-    width: 100px;
+    margin-bottom: 15px;
+    padding: 5px;
+    width: 100%;
     border: 1px solid #000;
     border-radius: 10px;
     cursor: pointer;
-}
-
-.segment-wrapper div:last-child {
-    margin-right: 0;
 }
 
 .segment-wrapper div:hover {
@@ -143,7 +137,7 @@ input[type='text']:focus {
 }
 
 .component-wrapper {
-    flex: 0.3;
+    margin-bottom: 15px;
 }
 
 .component-wrapper > div {
@@ -151,6 +145,7 @@ input[type='text']:focus {
     border-radius: 15px;
 }
 
+.segment-wrapper,
 .kpm-wrapper,
 .prev-wrapper,
 .record-wrapper,
@@ -163,19 +158,8 @@ input[type='text']:focus {
     vertical-align: top;
 }
 
-.kpm-wrapper,
-.elapsedTime-wrapper {
-    margin-bottom: 10px;
-}
-
-.kpm-wrapper,
-.record-wrapper {
+.segment-wrapper {
     margin-right: 0;
-}
-
-.prev-wrapper,
-.record-wrapper {
-    margin-bottom: 0;
 }
 
 .kpm-wrapper > p,
