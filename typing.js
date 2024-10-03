@@ -463,6 +463,7 @@ inputText.addEventListener('keyup', (event) => {
 
             drawGaugeGraph('recordGauge', recordValue, inputSavedMode);
             drawGaugeGraph('prevGauge', kpm, inputSavedMode);
+            drawGaugeGraph('currentGauge', 0, inputSavedMode);
 
             // 다음 문장으로 이동
             currentSentenceIndex++;
