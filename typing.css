@@ -253,3 +253,7 @@ input[type='text']:focus {
     left: -25px;
     pointer-events: none;
 }
+
+.modebar-container {
+    display: none;
+}
