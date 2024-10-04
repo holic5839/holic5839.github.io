@@ -203,6 +203,7 @@ let totalKeystrokes = 0; // 입력된 총 키스트로크 수
 let intervalId; // setInterval ID
 let isTyping = false; // 사용자가 타이핑 중인지 여부
 let kpm = 0;
+let currentLang = localStorage.getItem('systemLanguage') || 'ko';
 
 const textToTypeElement = document.getElementById('textToType');
 const inputText = document.getElementById('inputText');
@@ -210,10 +211,12 @@ const result = document.getElementById('result');
 const kpmElement = document.getElementById('kpm');
 const elapsedTimeElement = document.getElementById('elapsedTime');
 const recordElement = document.getElementById('record');
+const languageButtonElement =  document.getElementById('languageButton');
 
 // 테마, 언어변경용 변수
 const savedMode = localStorage.getItem('theme');
 const language = localStorage.getItem('language');
+const defaultLang = navigator.language.startsWith('ko') ? 'ko' : 'en';
 
 const sentences = language === 'english' ? sentencesEnglish : sentencesKorean;
 
@@ -248,8 +251,21 @@ function changeLanguage() {
     location.reload();
 }
 
-function changeSystemLanguage() {
-    console.log('system language');
+function changeSystemLanguage(lang) {
+    const enTexts = document.querySelectorAll('.lang-en');
+    const koTexts = document.querySelectorAll('.lang-ko');
+    
+    if (lang === 'en') {
+      enTexts.forEach(el => el.style.display = 'block');
+      koTexts.forEach(el => el.style.display = 'none');
+      document.getElementById('languageButton').textContent = '한글';
+    } else if (lang === 'ko') {
+      koTexts.forEach(el => el.style.display = 'block');
+      enTexts.forEach(el => el.style.display = 'none');
+      document.getElementById('languageButton').textContent = 'English';
+    }
+
+    localStorage.setItem('systemLanguage', lang);
 }
 
 function shuffle(array) {
@@ -480,10 +496,13 @@ inputText.addEventListener('keyup', (event) => {
     }
 });
 
-
-
+languageButtonElement.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'ko' : 'en'; // 언어 전환
+    changeSystemLanguage(currentLang);
+});
 
 // 페이지 로드 시 첫 번째 문장 설정
+changeSystemLanguage(currentLang);
 updateSentence();
 drawGaugeGraph('currentGauge', 0, savedMode);
 drawGaugeGraph('prevGauge', 0, savedMode);

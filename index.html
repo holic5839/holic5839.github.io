@@ -30,8 +30,8 @@
         <div class="title-wrapper">
             <h1>Typing Today</h1>
             <div class="svg-container">
-                <div class="svg-wrapper" onclick="changeSystemLanguage()">
-                    <img src="assets/icn-language.svg" alt="language">
+                <div id="languageButton" class="btn-system-language" onclick="changeSystemLanguage()">
+                    <!-- <img src="assets/icn-language.svg" alt="language"> -->
                 </div>
                 <div class="svg-wrapper" onclick="changeTheme()">
                     <img src="assets/icn-darkmode.svg" alt="darkmode">
@@ -44,27 +44,33 @@
         <div class="body-container">
             <div class="component-wrapper">
                 <div class="elapsedTime-wrapper">
-                    <p>경과 시간</p>
+                    <p class="lang-ko">경과 시간</p>
+                    <p class="lang-en">Time</p>
                     <div id="elapsedTime"></div>
                 </div>
                 <div class="kpm-wrapper">
-                    <p>현재 타수</p>
+                    <p class="lang-ko">현재 타수</p>
+                    <p class="lang-en">Current</p>
                     <div id='currentGauge'></div>
                     <div id="kpm" style="display: none;"></div>
                 </div>
                 <div class="prev-wrapper">
-                    <p>이전 타수</p>
+                    <p class="lang-ko">이전 타수</p>
+                    <p class="lang-en">Previous</p>
                      <div id='prevGauge'></div>
                     <div id="prev" style="display: none;">0</div>
                 </div>
                 <div class="record-wrapper">
-                    <p>최고 타수</p>
+                    <p class="lang-ko">최고 타수</p>
+                    <p class="lang-en">Best</p>
                     <div id='recordGauge'></div>
                     <div id="record" style="display: none;">0</div>
                 </div>
                 <div class="segment-wrapper">
-                    <div onclick="changeTheme()">테마</div>
-                    <div onclick="changeLanguage()">언어</div>
+                    <div class="lang-ko" onclick="changeTheme()">테마</div>
+                    <div class="lang-ko" onclick="changeLanguage()">언어</div>
+                    <div class="lang-en" onclick="changeTheme()">Theme</div>
+                    <div class="lang-en" onclick="changeLanguage()">Lang</div>
                 </div>
             </div>
             <div class="body-wrapper">

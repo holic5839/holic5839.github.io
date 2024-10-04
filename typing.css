@@ -94,6 +94,10 @@ input[type='text']:focus {
     background-color: inherit;
 }
 
+.lang-en, .lang-ko { 
+    display: none;
+}
+
 .wrong {
     color: red;
 }
@@ -136,6 +140,15 @@ input[type='text']:focus {
 
 .svg-wrapper:last-child {
     margin-right: 0px;
+}
+
+.btn-system-language {
+    margin-right: 10px;
+    height: 43px;
+    line-height: 43px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .segment-wrapper div {
