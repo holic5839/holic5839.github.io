@@ -20,6 +20,10 @@ body.dark-mode {
     background-color: #2f3349;
 }
 
+.dark-mode .svg-wrapper {
+    filter: brightness(0) saturate(100%) invert(89%) sepia(4%) saturate(180%) hue-rotate(178deg) brightness(103%) contrast(92%);
+}
+
 .dark-mode .segment-wrapper div {
     border: 1px solid #fff;
 }
@@ -127,6 +131,7 @@ input[type='text']:focus {
 .svg-wrapper {
     margin-right: 10px;
     cursor: pointer;
+    filter: brightness(0) saturate(100%) invert(0);
 }
 
 .svg-wrapper:last-child {

@@ -248,6 +248,10 @@ function changeLanguage() {
     location.reload();
 }
 
+function changeSystemLanguage() {
+    console.log('system language');
+}
+
 function shuffle(array) {
     // 배열의 마지막 요소부터 반복하면서 무작위 요소와 교환
     for (let i = array.length - 1; i > 0; i--) {
