@@ -383,7 +383,6 @@ function compareStrings(str1, str2) {
 }
 
 function drawGaugeGraph(id, value, theme) {
-    console.log(theme)
     const data = [
         {
           type: "indicator",
