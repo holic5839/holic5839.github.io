@@ -214,7 +214,7 @@ const recordElement = document.getElementById('record');
 const languageButtonElement =  document.getElementById('languageButton');
 
 // 테마, 언어변경용 변수
-const savedMode = localStorage.getItem('theme');
+const savedMode = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
 const language = localStorage.getItem('language');
 const defaultLang = navigator.language.startsWith('ko') ? 'ko' : 'en';
 
@@ -383,6 +383,7 @@ function compareStrings(str1, str2) {
 }
 
 function drawGaugeGraph(id, value, theme) {
+    console.log(theme)
     const data = [
         {
           type: "indicator",
