@@ -203,12 +203,13 @@ let totalKeystrokes = 0; // 입력된 총 키스트로크 수
 let intervalId; // setInterval ID
 let isTyping = false; // 사용자가 타이핑 중인지 여부
 let kpm = 0;
-let currentLang = localStorage.getItem('systemLanguage') || 'ko';
+let prev = 0;
 
 const textToTypeElement = document.getElementById('textToType');
 const inputText = document.getElementById('inputText');
 const result = document.getElementById('result');
 const kpmElement = document.getElementById('kpm');
+const prevElement = document.getElementById('prev');
 const elapsedTimeElement = document.getElementById('elapsedTime');
 const recordElement = document.getElementById('record');
 const languageButtonElement =  document.getElementById('languageButton');
@@ -217,29 +218,76 @@ const languageButtonElement =  document.getElementById('languageButton');
 const savedMode = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
 const language = localStorage.getItem('language');
 const defaultLang = navigator.language.startsWith('ko') ? 'ko' : 'en';
-
 const sentences = language === 'english' ? sentencesEnglish : sentencesKorean;
+let currentLang = localStorage.getItem('systemLanguage') || 'ko';
 
 if (savedMode) {
     document.body.classList.toggle('dark-mode', savedMode === 'dark');
 }
 
+// 타이머 초기화 함수
+function resetTimer() {
+    if (intervalId) clearInterval(intervalId); // 타이머가 있으면 중지
+    elapsedTimeElement.innerText = '0.00'; // 경과 시간 초기화
+    startTime = null; // 시작 시간 초기화
+    isTyping = false; // 타이핑 상태 초기화
+}
+
+function resetKpm() {
+    kpmElement.innerText = '0';
+}
+
+function resetText(event) {
+    if (event.keyCode === 27) {
+        for (let i = 0; i < textToTypeElement.children.length; i++) {
+            textToTypeElement.children[i].classList.remove('wrong')
+        }
+        inputText.value = '';
+        resetTimer();
+        resetKpm();
+    }
+}
+
+function drawGaugeGraph(id, value, theme) {
+    const data = [
+        {
+          type: "indicator",
+          mode: "gauge+number",
+          value: value,
+          title: { text: "", font: { size: 24 } },
+          gauge: {
+            axis: { range: [null, 1500], tickvals: [], ticktext: [] , tickwidth: 0, tickcolor: "darkblue" },
+            bar: { color: theme === 'dark' ? "white" : "black" },
+            bgcolor: "transparent",
+            borderwidth: 1,
+            bordercolor: theme === 'dark' ? "white" : "black",
+          }
+        }
+      ];
+    
+    const layout = {
+        width: 120,
+        height: 120,
+        margin: { t: 25, r: 25, l: 25, b: 25 },
+        paper_bgcolor: "transparent",
+        font: { color: theme === 'dark' ? "white" : "black" }
+    };
+    Plotly.newPlot(id, data, layout);
+}
+
 function changeTheme() {
     const isDarkMode = document.body.classList.toggle('dark-mode');
     const theme = isDarkMode ? 'dark' : 'light';
-
+    
     localStorage.setItem('theme', theme);
 
-    drawGaugeGraph('currentGauge', 0, theme);
-    drawGaugeGraph('prevGauge', kpm, theme);
+    drawGaugeGraph('currentGauge', kpm, theme);
+    drawGaugeGraph('prevGauge', prev, theme);
     drawGaugeGraph('recordGauge', recordElement.innerText, theme);
 
     for (let i = 0; i < textToTypeElement.children.length; i++) {
         textToTypeElement.children[i].classList.remove('wrong')
     }
-    inputText.value = '';
-    resetTimer();
-    resetKpm();
 }
 
 function changeLanguage() {
@@ -298,24 +346,6 @@ function updateSentence() {
     isTyping = false; // 타이핑 중 상태 초기화
 }
 
-// 타이머 초기화 함수
-function resetTimer() {
-    if (intervalId) clearInterval(intervalId); // 타이머가 있으면 중지
-    elapsedTimeElement.innerText = '0.00'; // 경과 시간 초기화
-    startTime = null; // 시작 시간 초기화
-    isTyping = false; // 타이핑 상태 초기화
-}
-
-function resetKpm() {
-    kpmElement.innerText = '0';
-}
-
-// 타이머 시작 함수
-function startTimer() {
-    startTime = Date.now();
-    intervalId = setInterval(updateElapsedTime, 10); // 100ms마다 시간 업데이트
-}
-
 // 경과 시간 업데이트 함수 (소숫점 2째자리까지 표시, 밀리초 포함)
 function updateElapsedTime() {
     const now = Date.now();
@@ -325,6 +355,12 @@ function updateElapsedTime() {
     const milliseconds = Math.floor((elapsedTimeInMilliseconds % 1000) / 10); // 밀리초를 10ms 단위로 변환
 
     elapsedTimeElement.innerText = `${seconds}.${milliseconds.toString().padStart(2, '0')}`;
+}
+
+// 타이머 시작 함수
+function startTimer() {
+    startTime = Date.now();
+    intervalId = setInterval(updateElapsedTime, 10); // 100ms마다 시간 업데이트
 }
 
 // 한글 자모 단위로 분리하여 키 입력 수 계산하는 함수 (한글 전용)
@@ -349,17 +385,6 @@ function isKorean(text) {
     return /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
 }
 
-function resetText(event) {
-    if (event.keyCode === 27) {
-        for (let i = 0; i < textToTypeElement.children.length; i++) {
-            textToTypeElement.children[i].classList.remove('wrong')
-        }
-        inputText.value = '';
-        resetTimer();
-        resetKpm();
-    }
-}
-
 // 문자열 비교
 function compareStrings(str1, str2) {
     const minLength = Math.min(str1.length, str2.length);
@@ -382,31 +407,13 @@ function compareStrings(str1, str2) {
     return diffIndices.length > 0 ? diffIndices : -1;
 }
 
-function drawGaugeGraph(id, value, theme) {
-    const data = [
-        {
-          type: "indicator",
-          mode: "gauge+number",
-          value: value,
-          title: { text: "", font: { size: 24 } },
-          gauge: {
-            axis: { range: [null, 1500], tickvals: [], ticktext: [] , tickwidth: 0, tickcolor: "darkblue" },
-            bar: { color: theme === 'dark' ? "white" : "black" },
-            bgcolor: "transparent",
-            borderwidth: 1,
-            bordercolor: theme === 'dark' ? "white" : "black",
-          }
-        }
-      ];
-    
-    const layout = {
-        width: 120,
-        height: 120,
-        margin: { t: 25, r: 25, l: 25, b: 25 },
-        paper_bgcolor: "transparent",
-        font: { color: theme === 'dark' ? "white" : "black" }
-    };
-    Plotly.newPlot(id, data, layout);
+// 최초 로드 시 동작하는 함수
+function init() {
+    changeSystemLanguage(currentLang);
+    updateSentence();
+    drawGaugeGraph('currentGauge', 0, savedMode);
+    drawGaugeGraph('prevGauge', 0, savedMode);
+    drawGaugeGraph('recordGauge', 0, savedMode);
 }
 
 // 타이핑 시작 시간 기록 및 KPM 업데이트
@@ -445,6 +452,7 @@ inputText.addEventListener('input', (event) => {
     }
 });
 
+
 inputText.addEventListener('keyup', (event) => {
     const inputSavedMode = localStorage.getItem('theme');
     // ESC를 누르면 입력창 초기화
@@ -477,6 +485,7 @@ inputText.addEventListener('keyup', (event) => {
             const recordValue = Number(recordElement.innerText) >= kpm ? recordElement.innerText : kpm;
 
             recordElement.innerText = recordValue;
+            prev = kpm;
 
             result.innerText = '정확합니다!';
             result.className = 'success';
@@ -496,14 +505,10 @@ inputText.addEventListener('keyup', (event) => {
     }
 });
 
+// 시스템 언어 변경 버튼 눌렀을 때
 languageButtonElement.addEventListener('click', () => {
     currentLang = currentLang === 'en' ? 'ko' : 'en'; // 언어 전환
     changeSystemLanguage(currentLang);
 });
 
-// 페이지 로드 시 첫 번째 문장 설정
-changeSystemLanguage(currentLang);
-updateSentence();
-drawGaugeGraph('currentGauge', 0, savedMode);
-drawGaugeGraph('prevGauge', 0, savedMode);
-drawGaugeGraph('recordGauge', 0, savedMode);
+init();
