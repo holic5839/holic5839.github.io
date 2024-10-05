@@ -197,11 +197,11 @@ const sentencesEnglish = [
     'Your guess is as good as mine',
 ];
 
-let currentSentenceIndex = 0; // 현재 문장 index
-let startTime; // 타이핑 시작 시간
-let totalKeystrokes = 0; // 입력된 총 키스트로크 수
-let intervalId; // setInterval ID
-let isTyping = false; // 사용자가 타이핑 중인지 여부
+let currentSentenceIndex = 0;
+let startTime;
+let totalKeystrokes = 0;
+let intervalId;
+let isTyping = false;
 let kpm = 0;
 let prev = 0;
 
@@ -214,7 +214,6 @@ const elapsedTimeElement = document.getElementById('elapsedTime');
 const recordElement = document.getElementById('record');
 const languageButtonElement =  document.getElementById('languageButton');
 
-// 테마, 언어변경용 변수
 const savedMode = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
 const language = localStorage.getItem('language');
 const defaultLang = navigator.language.startsWith('ko') ? 'ko' : 'en';
@@ -225,16 +224,19 @@ if (savedMode) {
     document.body.classList.toggle('dark-mode', savedMode === 'dark');
 }
 
-// 타이머 초기화 함수
 function resetTimer() {
-    if (intervalId) clearInterval(intervalId); // 타이머가 있으면 중지
-    elapsedTimeElement.innerText = '0.00'; // 경과 시간 초기화
-    startTime = null; // 시작 시간 초기화
-    isTyping = false; // 타이핑 상태 초기화
+    if (intervalId) clearInterval(intervalId);
+    elapsedTimeElement.innerText = '0.00';
+    startTime = null; 
+    isTyping = false;
 }
 
 function resetKpm() {
     kpmElement.innerText = '0';
+}
+
+function resetInput() {
+    inputText.value = '';
 }
 
 function resetText(event) {
@@ -242,7 +244,7 @@ function resetText(event) {
         for (let i = 0; i < textToTypeElement.children.length; i++) {
             textToTypeElement.children[i].classList.remove('wrong')
         }
-        inputText.value = '';
+        resetInput();
         resetTimer();
         resetKpm();
     }
@@ -278,7 +280,7 @@ function drawGaugeGraph(id, value, theme) {
 function changeTheme() {
     const isDarkMode = document.body.classList.toggle('dark-mode');
     const theme = isDarkMode ? 'dark' : 'light';
-    
+
     localStorage.setItem('theme', theme);
 
     drawGaugeGraph('currentGauge', kpm, theme);
@@ -317,11 +319,8 @@ function changeSystemLanguage(lang) {
 }
 
 function shuffle(array) {
-    // 배열의 마지막 요소부터 반복하면서 무작위 요소와 교환
     for (let i = array.length - 1; i > 0; i--) {
-        // 무작위 인덱스 생성
         const j = Math.floor(Math.random() * (i + 1));
-        // 현재 요소와 무작위 요소 교환
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
@@ -334,80 +333,69 @@ function wrapEachCharacterWithSpan(text) {
       .join('');
 }
 
-// 현재 문장을 화면에 표시
 function updateSentence() {
     textToTypeElement.innerHTML = wrapEachCharacterWithSpan(shuffle(sentences)[currentSentenceIndex]);
-    resetTimer(); // 새로운 문장 시작 시 타이머 초기화
-    inputText.value = ''; // 입력창 초기화
-    totalKeystrokes = 0; // 타수 초기화
-    kpmElement.innerText = '0'; // KPM 초기화
-    result.innerText = ''; // 결과 초기화
-    inputText.disabled = false; // 입력창 활성화
-    isTyping = false; // 타이핑 중 상태 초기화
+    resetTimer();
+    resetInput();
+    totalKeystrokes = 0; 
+    kpmElement.innerText = '0'; 
+    result.innerText = ''; 
+    inputText.disabled = false; 
+    isTyping = false;
 }
 
-// 경과 시간 업데이트 함수 (소숫점 2째자리까지 표시, 밀리초 포함)
 function updateElapsedTime() {
     const now = Date.now();
     const elapsedTimeInMilliseconds = now - startTime;
     const elapsedTimeInSeconds = elapsedTimeInMilliseconds / 1000;
     const seconds = Math.floor(elapsedTimeInSeconds);
-    const milliseconds = Math.floor((elapsedTimeInMilliseconds % 1000) / 10); // 밀리초를 10ms 단위로 변환
+    const milliseconds = Math.floor((elapsedTimeInMilliseconds % 1000) / 10);
 
     elapsedTimeElement.innerText = `${seconds}.${milliseconds.toString().padStart(2, '0')}`;
 }
 
-// 타이머 시작 함수
 function startTimer() {
     startTime = Date.now();
-    intervalId = setInterval(updateElapsedTime, 10); // 100ms마다 시간 업데이트
+    intervalId = setInterval(updateElapsedTime, 10);
 }
 
-// 한글 자모 단위로 분리하여 키 입력 수 계산하는 함수 (한글 전용)
 function countKeystrokesKorean(input) {
     const decomposed = input.normalize('NFD');
     return decomposed.replace(/[^\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF]/g, '').length;
 }
 
-// 영어 알파벳 개수를 계산하는 함수 (영어 전용)
 function countKeystrokesEnglish(input) {
     return input.replace(/[^a-zA-Z]/g, '').length;
 }
 
-// KPM 계산 함수
 function calculateKPM(keystrokes, startTime) {
     const elapsedTimeInMinutes = (Date.now() - startTime) / 1000 / 60;
     return Math.round(keystrokes / elapsedTimeInMinutes);
 }
 
-// 한글 여부를 판단하는 함수
 function isKorean(text) {
     return /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
 }
 
-// 문자열 비교
 function compareStrings(str1, str2) {
     const minLength = Math.min(str1.length, str2.length);
     const diffIndices = [];
   
     for (let i = 0; i < minLength; i++) {
       if (str1[i] !== str2[i]) {
-        diffIndices.push(i); // 다른 인덱스를 저장
+        diffIndices.push(i);
       }
     }
   
-    // 길이가 다르면, 더 긴 문자열의 나머지 부분도 차이로 간주
     if (str1.length !== str2.length) {
       for (let i = minLength; i < Math.max(str1.length, str2.length); i++) {
         diffIndices.push(i);
       }
     }
-  
-    // 다른 인덱스가 없으면 -1 반환, 있으면 인덱스 배열 반환
+
     return diffIndices.length > 0 ? diffIndices : -1;
 }
 
-// 최초 로드 시 동작하는 함수
 function init() {
     changeSystemLanguage(currentLang);
     updateSentence();
@@ -416,7 +404,6 @@ function init() {
     drawGaugeGraph('recordGauge', 0, savedMode);
 }
 
-// 타이핑 시작 시간 기록 및 KPM 업데이트
 inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
     const inputSavedMode = localStorage.getItem('theme');
@@ -425,61 +412,54 @@ inputText.addEventListener('input', (event) => {
     drawGaugeGraph('currentGauge', kpm, inputSavedMode);
 
     if (userInput === '') {
-        resetTimer(); // 입력이 없으면 타이머를 초기화
+        resetTimer();
         resetKpm();
         for (let i = 0; i < textToTypeElement.children.length; i++) {
             textToTypeElement.children[i].classList.remove('wrong')
         }
     } else if (!isTyping) {
-        // 타이핑이 시작되면 타이머를 시작
         startTimer();
         isTyping = true;
     }
 
-    // 한글이면 자모 분리 후 키 입력 수 계산
     if (isKorean(userInput)) {
         totalKeystrokes = countKeystrokesKorean(userInput);
     }
-    // 영어면 알파벳 개수로 키 입력 수 계산
+
     else {
         totalKeystrokes = countKeystrokesEnglish(userInput);
     }
 
-    // KPM 계산 및 출력 (2자 이상 입력했을 때만)
     if (startTime && totalKeystrokes > 1) {
         kpm = calculateKPM(totalKeystrokes, startTime);
         kpmElement.innerText = `${kpm}`;
     }
 });
 
-
 inputText.addEventListener('keyup', (event) => {
     const inputSavedMode = localStorage.getItem('theme');
-    // ESC를 누르면 입력창 초기화
-    resetText(event);
-    event.preventDefault(); // 기본 Enter 동작 차단
 
-    const userInput = inputText.value; // trim() 제거하여 띄어쓰기도 비교에 포함
+    resetText(event);
+    event.preventDefault();
+
+    const userInput = inputText.value;
     const currentLength = userInput.length;
     const targetSentence = sentences[currentSentenceIndex];
 
-    // 이전 글자에 대한 검증 (현재 글자 입력 후 직전 글자 검증)
-    if (currentLength > 1) { // 입력이 하나 이상일 때만 직전 글자를 확인
-        const prevIndex = currentLength - 2; // 직전 글자의 인덱스
+    if (currentLength > 1) {
+        const prevIndex = currentLength - 2;
         if (userInput[prevIndex] !== targetSentence[prevIndex]) {
-            textToTypeElement.children[prevIndex].className = 'wrong'; // 직전 글자 오타 시 wrong 추가
+            textToTypeElement.children[prevIndex].className = 'wrong';
         } else {
-            textToTypeElement.children[prevIndex].classList.remove('wrong'); // 올바르면 wrong 제거
+            textToTypeElement.children[prevIndex].classList.remove('wrong');
         }
     }
 
-    // 백스페이스로 글자를 지울 때 'wrong' 클래스 제거
     if (event.keyCode === 8 && currentLength > 0) {
-        const lastTypedIndex = currentLength - 1; // 지운 글자의 인덱스
+        const lastTypedIndex = currentLength - 1;
         textToTypeElement.children[lastTypedIndex].classList.remove('wrong');
     }
 
-    // Enter 키로 문장 확인
     if (event.keyCode === 13) {
         if (compareStrings(userInput, targetSentence) == -1) {
             const recordValue = Number(recordElement.innerText) >= kpm ? recordElement.innerText : kpm;
@@ -494,10 +474,9 @@ inputText.addEventListener('keyup', (event) => {
             drawGaugeGraph('prevGauge', kpm, inputSavedMode);
             drawGaugeGraph('currentGauge', 0, inputSavedMode);
 
-            // 다음 문장으로 이동
             currentSentenceIndex++;
             updateSentence();
-            inputText.value = '';
+            resetInput();
         } else {
             result.innerText = '틀렸습니다. 다시 시도해보세요.';
             result.className = 'error';
@@ -505,9 +484,8 @@ inputText.addEventListener('keyup', (event) => {
     }
 });
 
-// 시스템 언어 변경 버튼 눌렀을 때
 languageButtonElement.addEventListener('click', () => {
-    currentLang = currentLang === 'en' ? 'ko' : 'en'; // 언어 전환
+    currentLang = currentLang === 'en' ? 'ko' : 'en';
     changeSystemLanguage(currentLang);
 });
 
