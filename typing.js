@@ -237,6 +237,8 @@ function resetKpm() {
 
 function resetInput() {
     inputText.value = '';
+    result.innerText = '';
+    result.className = '';
 }
 
 function resetText(event) {
@@ -250,7 +252,7 @@ function resetText(event) {
     }
 }
 
-function drawGaugeGraph(id, value, theme) {
+function drawGaugeGraph(id, value, color = '#fff', theme) {
     const data = [
         {
           type: "indicator",
@@ -259,10 +261,10 @@ function drawGaugeGraph(id, value, theme) {
           title: { text: "", font: { size: 24 } },
           gauge: {
             axis: { range: [null, 1500], tickvals: [], ticktext: [] , tickwidth: 0, tickcolor: "darkblue" },
-            bar: { color: theme === 'dark' ? "white" : "black" },
+            bar: { color },
             bgcolor: "transparent",
             borderwidth: 1,
-            bordercolor: theme === 'dark' ? "white" : "black",
+            bordercolor: color,
           }
         }
       ];
@@ -283,9 +285,9 @@ function changeTheme() {
 
     localStorage.setItem('theme', theme);
 
-    drawGaugeGraph('currentGauge', kpm, theme);
-    drawGaugeGraph('prevGauge', prev, theme);
-    drawGaugeGraph('recordGauge', recordElement.innerText, theme);
+    drawGaugeGraph('currentGauge', kpm, '#7367f0', theme);
+    drawGaugeGraph('prevGauge', prev, '#00bad1', theme);
+    drawGaugeGraph('recordGauge', recordElement.innerText, '#29a867', theme);
 
     for (let i = 0; i < textToTypeElement.children.length; i++) {
         textToTypeElement.children[i].classList.remove('wrong')
@@ -399,17 +401,18 @@ function compareStrings(str1, str2) {
 function init() {
     changeSystemLanguage(currentLang);
     updateSentence();
-    drawGaugeGraph('currentGauge', 0, savedMode);
-    drawGaugeGraph('prevGauge', 0, savedMode);
-    drawGaugeGraph('recordGauge', 0, savedMode);
+    drawGaugeGraph('currentGauge', 0, '#7367f0', savedMode);
+    drawGaugeGraph('prevGauge', 0, '#00bad1', savedMode);
+    drawGaugeGraph('recordGauge', 0, '#29a867', savedMode);
 }
 
+// 밑에 두개 안에 함수로 만들고 합치기
 inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
     const inputSavedMode = localStorage.getItem('theme');
     let totalKeystrokes;
 
-    drawGaugeGraph('currentGauge', kpm, inputSavedMode);
+    drawGaugeGraph('currentGauge', kpm, '#7367f0', inputSavedMode);
 
     if (userInput === '') {
         resetTimer();
@@ -455,9 +458,13 @@ inputText.addEventListener('keyup', (event) => {
         }
     }
 
-    if (event.keyCode === 8 && currentLength > 0) {
+    if (event.keyCode === 8 && currentLength >= 0) {
         const lastTypedIndex = currentLength - 1;
-        textToTypeElement.children[lastTypedIndex].classList.remove('wrong');
+        textToTypeElement.children[lastTypedIndex]?.classList?.remove('wrong');
+        if (currentLength < 1) {
+            result.innerText = '';
+            result.className = '';
+        }
     }
 
     if (event.keyCode === 13) {
@@ -470,9 +477,9 @@ inputText.addEventListener('keyup', (event) => {
             result.innerText = '정확합니다!';
             result.className = 'success';
 
-            drawGaugeGraph('recordGauge', recordValue, inputSavedMode);
-            drawGaugeGraph('prevGauge', kpm, inputSavedMode);
-            drawGaugeGraph('currentGauge', 0, inputSavedMode);
+            drawGaugeGraph('currentGauge', 0, '#7367f0', inputSavedMode);
+            drawGaugeGraph('prevGauge', kpm, '#00bad1', inputSavedMode);
+            drawGaugeGraph('recordGauge', recordValue, '#29a867', inputSavedMode);
 
             currentSentenceIndex++;
             updateSentence();

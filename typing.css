@@ -13,7 +13,7 @@ body.dark-mode {
 
 .dark-mode input[type='text'] {
     color: #cfcde4;
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #cfcde4;
 }
 
 .dark-mode .body-wrapper {
@@ -25,12 +25,12 @@ body.dark-mode {
 }
 
 .dark-mode .segment-wrapper div {
-    border: 1px solid #fff;
+    border: 1px solid #cfcde4;
 }
 
 .dark-mode .segment-wrapper div:hover {
-    color: #000;
-    background-color: #fff;
+    color: #25293c;
+    background-color: #cfcde4;
 }
 
 .dark-mode .segment-wrapper,
@@ -99,7 +99,7 @@ input[type='text']:focus {
 }
 
 .wrong {
-    color: red;
+    color: #ff4c51;
 }
 
 .body-container {
@@ -113,7 +113,8 @@ input[type='text']:focus {
 
 .body-wrapper {
     padding: 40px;
-    min-height: 210px;
+    min-height: 220px;
+    height: 220px;
     background-color: #fff;
     border-radius: 15px;
 }
@@ -244,7 +245,7 @@ input[type='text']:focus {
 }
 
 #result.error {
-    color: #e57373;
+    color: #ff4c51;
 }
 
 .js-plotly-plot .plotly .main-svg {
