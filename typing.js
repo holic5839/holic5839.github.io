@@ -485,7 +485,7 @@ inputText.addEventListener('keyup', (event) => {
             updateSentence();
             resetInput();
         } else {
-            result.innerText = '틀렸습니다. 다시 시도해보세요.';
+            // result.innerText = '틀렸습니다. 다시 시도해보세요.';
             result.className = 'error';
         }
     }
