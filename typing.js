@@ -440,7 +440,7 @@ inputText.addEventListener('input', (event) => {
 });
 
 inputText.addEventListener('keyup', (event) => {
-    const inputSavedMode = localStorage.getItem('theme');
+    const inputSavedMode = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
 
     resetText(event);
     event.preventDefault();
