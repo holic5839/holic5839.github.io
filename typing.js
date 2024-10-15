@@ -409,7 +409,7 @@ function init() {
 // 밑에 두개 안에 함수로 만들고 합치기
 inputText.addEventListener('input', (event) => {
     const userInput = inputText.value.trim();
-    const inputSavedMode = localStorage.getItem('theme');
+    const inputSavedMode = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
     let totalKeystrokes;
 
     drawGaugeGraph('currentGauge', kpm, '#7367f0', inputSavedMode);
