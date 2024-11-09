@@ -54,16 +54,34 @@
             },
         ];
 
-        let currentProduct = product.find((i) => i.place === type);
+        const currentProduct = product.find((i) => i.place === type);
         const colors = [];
 
         const addElement = (text) => {
             const newDiv = document.createElement('div');
             const newContent = document.createTextNode(text);
 
+            newDiv.className = 'menu-name-' + text;
+            newDiv.style.padding = '15px';
+            newDiv.style.margin = '0 5px 5px 0';
+            newDiv.style.border = '1px solid #eaeaea';
+            newDiv.style.borderRadius = '10px';
+            newDiv.style.cursor = 'pointer';
+
+            newDiv.onclick = () => {
+                delElement(text);
+            }
+
             newDiv.appendChild(newContent);
             menuList.appendChild(newDiv);
         };
+
+        const delElement = (text) => {
+            const currentElement = menuList.querySelector(`.menu-name-${text}`);
+            currentProduct.foods = currentProduct.foods.filter(i => i !== text);
+            menuList.removeChild(currentElement)
+            newMake();
+        }
 
         const changeType = (e) => {
             if (e.target.innerText === '서판교' && !typeButton.className.includes('active')) {
@@ -152,12 +170,14 @@
             });
 
         addMenu.addEventListener('click', () => {
-            addElement(menuAdd.value);
-            menuAdd.value = '';
+            if (menuAdd.value) {
+                addElement(menuAdd.value);
+                menuAdd.value = '';
+            }
         })
 
         menuAdd.addEventListener('keyup', (e) => {
-            if (e.keyCode === 13) {
+            if (menuAdd.value && e.keyCode === 13) {
                 add();
                 addElement(menuAdd.value);
                 menuAdd.value = '';

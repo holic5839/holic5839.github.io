@@ -51,6 +51,17 @@
     position: relative;
   }
 
+  #menuList {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+  }
+
+  #menuList div:hover {
+    color: #fff;
+    background-color: #000;
+  }
+
   .type-button {
     margin-top: 20px;
   }
