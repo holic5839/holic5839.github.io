@@ -30,6 +30,7 @@
                 <button onclick="changeType(event)" class="active">서판교</button>
                 <button onclick="changeType(event)">오산</button>
             </div>
+            <div id="menuList"></div>
         </div>
     </body>
     <script>
@@ -39,6 +40,7 @@
         const menuAdd = document.querySelector('#menuAdd');
         const typeButton = document.querySelector('.type-button').children[0];
         const typeButton2 = document.querySelector('.type-button').children[1];
+        const menuList = document.querySelector('#menuList');
 
         const product = [
             {
@@ -52,8 +54,15 @@
         ];
 
         let currentProduct = product.find((i) => i.place === type);
-
         const colors = [];
+
+        const addElement = (text) => {
+            const newDiv = document.createElement('div');
+            const newContent = document.createTextNode(text);
+
+            newDiv.appendChild(newContent);
+            menuList.appendChild(newDiv);
+        };
 
         const changeType = (e) => {
             if (e.target.innerText === '서판교' && !typeButton.className.includes('active')) {
@@ -124,7 +133,7 @@
             }, 1);
         };
 
-        function add() {
+        const add = () => {
             if (menuAdd.value != undefined && menuAdd.value != '') {
                 currentProduct.foods.push(menuAdd.value);
                 let r = Math.floor(Math.random() * 256);
@@ -136,7 +145,11 @@
             } else {
                 alert('메뉴를 입력한 후 버튼을 클릭 해 주세요');
             }
-        }
+        };
+
+        product[0].foods.forEach((food) => {
+            addElement(food);
+        });
 
         newMake();
     </script>
