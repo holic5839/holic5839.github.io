@@ -26,10 +26,10 @@
                 <input type="text" id="menuAdd" />
                 <button onclick="add()" id="addMenu">메뉴 추가</button>
             </div>
-            <div class="type-button">
+            <!-- <div class="type-button">
                 <button onclick="changeType(event)" class="active">서판교</button>
                 <button onclick="changeType(event)">오산</button>
-            </div>
+            </div> -->
             <div id="menuList"></div>
         </div>
     </body>
@@ -38,15 +38,15 @@
         const $c = document.querySelector('canvas');
         const ctx = $c.getContext(`2d`);
         const menuAdd = document.querySelector('#menuAdd');
-        const typeButton = document.querySelector('.type-button').children[0];
-        const typeButton2 = document.querySelector('.type-button').children[1];
+        // const typeButton = document.querySelector('.type-button').children[0];
+        // const typeButton2 = document.querySelector('.type-button').children[1];
         const menuList = document.querySelector('#menuList');
         const addMenu = document.querySelector('#addMenu');
 
         const product = [
             {
                 place: '서판교',
-                foods: ['베트남음식점', '마라탕', '닭갈비', '중국집', '햄버거', '백반', '솥밥', '육개장', '청년다방'],
+                foods: ['베트남', '마라탕', '닭갈비', '중국집', '햄버거', '백반', '솥밥', '육개장', '청년다방'],
             },
             {
                 place: '오산',
@@ -83,19 +83,19 @@
             newMake();
         }
 
-        const changeType = (e) => {
-            if (e.target.innerText === '서판교' && !typeButton.className.includes('active')) {
-                typeButton.className += 'active';
-                type = '서판교';
-                typeButton2.classList.remove('active');
-            } else if (e.target.innerText === '오산' && !typeButton2.className.includes('active')) {
-                typeButton2.className += 'active';
-                typeButton.classList.remove('active');
-                type = '오산';
-            }
-            currentProduct = product.find((i) => i.place === type);
-            newMake();
-        };
+        // const changeType = (e) => {
+        //     if (e.target.innerText === '서판교' && !typeButton.className.includes('active')) {
+        //         typeButton.className += 'active';
+        //         type = '서판교';
+        //         typeButton2.classList.remove('active');
+        //     } else if (e.target.innerText === '오산' && !typeButton2.className.includes('active')) {
+        //         typeButton2.className += 'active';
+        //         typeButton.classList.remove('active');
+        //         type = '오산';
+        //     }
+        //     currentProduct = product.find((i) => i.place === type);
+        //     newMake();
+        // };
 
         const newMake = () => {
             const [cw, ch] = [$c.width / 2, $c.height / 2];

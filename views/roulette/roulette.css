@@ -2,6 +2,7 @@
   body {
     height : 100vh;
     overflow: hidden;
+    background-color: #060621;
   }
   
   canvas {
@@ -31,6 +32,7 @@
     display: flex;
     align-items: center;
     margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   #menuAdd {
@@ -55,6 +57,10 @@
     display: flex;
     flex-wrap: wrap;
     width: 300px;
+  }
+
+  #menuList div {
+    color: #fff;
   }
 
   #menuList div:hover {
