@@ -45,6 +45,9 @@
         // const typeButton2 = document.querySelector('.type-button').children[1];
         const menuList = document.querySelector('#menuList');
         const addMenu = document.querySelector('#addMenu');
+        let startY = 0;
+        let endY = 0;
+        let isClockwise = false;
 
         const product = [
             {
@@ -101,15 +104,20 @@
         // };
 
         const touchStartEvent =  (e) => {
-            console.log(e.changedTouches[0].clientY)
+            startY = e.changedTouches[0].clientY;
         }
-
+        
         const touchMoveEvent =  (e) => {
-            // console.log(e.changedTouches[0].clientY)
+            if (endY - startY > 0) {
+                isClockwise = true;
+            } else {
+                isClockwise = false;
+            }
+            rotate(isClockwise);
         }
         
         const touchEndEvent = (e) => {
-            console.log(e.changedTouches[0].clientY)
+            endY =  e.changedTouches[0].clientY;
         }
 
         const newMake = () => {
@@ -153,7 +161,7 @@
             }
         };
 
-        const rotate = () => {
+        const rotate = (isClockwise) => {
             $c.style.transform = `initial`;
             $c.style.transition = `initial`;
             const alpha = Math.floor(Math.random() * 100);
@@ -162,7 +170,7 @@
                 const ran = Math.floor(Math.random() * currentProduct.foods.length);
                 const arc = 360 / currentProduct.foods.length;
                 const rotate = ran * arc + 3600 + arc * 3 - arc / 4 + alpha;
-                $c.style.transform = `rotate(-${rotate}deg)`;
+                $c.style.transform = isClockwise ? `rotate(-${rotate}deg)` : `rotate(${rotate}deg)`;
                 $c.style.transition = `2s`;
             }, 1);
         };

@@ -111,6 +111,7 @@
     border: 3px solid #fff;
     border-radius: 50%;
     z-index: 22;
+    cursor: pointer;
   }
 
   .start-button p {
