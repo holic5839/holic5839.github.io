@@ -45,8 +45,8 @@
         // const typeButton2 = document.querySelector('.type-button').children[1];
         const menuList = document.querySelector('#menuList');
         const addMenu = document.querySelector('#addMenu');
-        let startY = 0;
-        let endY = 0;
+        let startY;
+        let endY;
         let isClockwise = false;
 
         const product = [
@@ -106,14 +106,15 @@
         const touchStartEvent =  (e) => {
             startY = e.changedTouches[0].clientY;
         }
-        
+        //TODO: start end값 초기화 안되는듯? 버그있음
         const touchMoveEvent =  (e) => {
-            if (endY - startY > 0) {
+            if (endY - startY > 50) {
                 isClockwise = true;
-            } else {
+                rotate(isClockwise);
+            } else if (endY - startY < -50) {
                 isClockwise = false;
+                rotate(isClockwise);
             }
-            rotate(isClockwise);
         }
         
         const touchEndEvent = (e) => {
@@ -164,13 +165,14 @@
         const rotate = (isClockwise) => {
             $c.style.transform = `initial`;
             $c.style.transition = `initial`;
+
             const alpha = Math.floor(Math.random() * 100);
 
             setTimeout(() => {
                 const ran = Math.floor(Math.random() * currentProduct.foods.length);
                 const arc = 360 / currentProduct.foods.length;
                 const rotate = ran * arc + 3600 + arc * 3 - arc / 4 + alpha;
-                $c.style.transform = isClockwise ? `rotate(-${rotate}deg)` : `rotate(${rotate}deg)`;
+                $c.style.transform = isClockwise ? `rotate(${rotate}deg)` : `rotate(-${rotate}deg)`;
                 $c.style.transition = `2s`;
             }, 1);
         };
