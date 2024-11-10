@@ -6,7 +6,6 @@
   }
   
   canvas {
-    margin-bottom : 30px;
     width: 70%;
     aspect-ratio: 1 / 1;
     transition: 2s;
@@ -81,17 +80,40 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom : 30px;
   }
   
   .pin {
     content: "";
     position: absolute;
-    width: 10px;
+    width: 3px;
     height: 50px;
-    border-radius: 5px;
+    border-radius: 1px;
     background: #000;
     top: -4px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 22;
+  }
+
+  .start-button {
+    content: "";
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #060621;
+    transform: translate(-50%, -50%);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    z-index: 22;
+  }
+
+  .start-button p {
+    color: #fff;
+    font-weight: 600;
   }

@@ -13,15 +13,18 @@
         />
         <title>룰렛</title>
         <link rel="stylesheet" href="roulette.css" />
+        <link rel="stylesheet" href="../../reset.css" />
         <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     </head>
     <body>
         <div id="menu">
             <div class="canvasWrapper">
                 <div class="pin"></div>
+                <div class="start-button" onclick="rotate()">
+                    <p>시작</p>
+                </div>
                 <canvas width="600" height="600"></canvas>
             </div>
-            <button onclick="rotate()">돌려돌려 돌림판</button>
             <div id="addDiv">
                 <input type="text" id="menuAdd" />
                 <button onclick="add()" id="addMenu">메뉴 추가</button>
@@ -118,7 +121,7 @@
             }
 
             ctx.fillStyle = '#fff';
-            ctx.font = '30px Pretendard';
+            ctx.font = 'bold 30px Pretendard';
             ctx.textAlign = 'center';
 
             for (let i = 0; i < currentProduct.foods.length; i++) {
