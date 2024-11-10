@@ -100,6 +100,18 @@
         //     newMake();
         // };
 
+        const touchStartEvent =  (e) => {
+            console.log(e.changedTouches[0].clientY)
+        }
+
+        const touchMoveEvent =  (e) => {
+            // console.log(e.changedTouches[0].clientY)
+        }
+        
+        const touchEndEvent = (e) => {
+            console.log(e.changedTouches[0].clientY)
+        }
+
         const newMake = () => {
             const [cw, ch] = [$c.width / 2, $c.height / 2];
             const arc = Math.PI / (currentProduct.foods.length / 2);
@@ -186,6 +198,10 @@
                 menuAdd.value = '';
             }
         })
+        
+        $c.addEventListener('touchstart', touchStartEvent)
+        $c.addEventListener('touchmove', touchMoveEvent)
+        $c.addEventListener('touchend', touchEndEvent)
 
         newMake();
     </script>
