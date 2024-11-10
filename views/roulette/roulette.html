@@ -20,7 +20,7 @@
         <div id="menu">
             <div class="canvasWrapper">
                 <div class="pin"></div>
-                <div class="start-button" onclick="rotate(undefined, true)">
+                <div class="start-button" onclick="rotate(360, true)">
                     <p>시작</p>
                 </div>
                 <canvas width="600" height="600"></canvas>
@@ -154,8 +154,8 @@
 
         const rotate = (angle, spin = false, direction = 1) => {
             $c.style.transition = spin ? `2s` : `initial`;
-
-            if (spin) {
+            
+            if (spin && Math.abs(angle) <= 360 && Math.abs(angle) > 10) {
                 const spinAngle = direction * (1800 + Math.floor(Math.random() * 360));
                 currentRotation += spinAngle;
                 $c.style.transform = `rotate(${currentRotation}deg)`;
