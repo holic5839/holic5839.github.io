@@ -37,31 +37,23 @@
         </div>
     </body>
     <script>
-        let type = '서판교';
         const $c = document.querySelector('canvas');
         const ctx = $c.getContext(`2d`);
         const menuAdd = document.querySelector('#menuAdd');
-        // const typeButton = document.querySelector('.type-button').children[0];
-        // const typeButton2 = document.querySelector('.type-button').children[1];
         const menuList = document.querySelector('#menuList');
         const addMenu = document.querySelector('#addMenu');
-        let startY;
-        let endY;
-        let isClockwise = false;
-
-        const product = [
-            {
-                place: '서판교',
-                foods: ['베트남', '마라탕', '닭갈비', '중국집', '햄버거', '백반', '솥밥', '육개장', '청년다방'],
-            },
-            {
-                place: '오산',
-                foods: ['다시 돌리기'],
-            },
-        ];
-
-        let currentProduct = product.find((i) => i.place === type);
         const colors = [];
+        const product = {
+            place: '서판교',
+            foods: ['베트남', '마라탕', '닭갈비', '중국집', '햄버거', '백반', '솥밥', '육개장', '청년다방'],
+        };
+
+        let currentProduct = product;
+
+        let startAngle = 0;
+        let currentRotation = 0;
+        let lastMoveTime = 0;
+        let lastVelocity = 0;
 
         const addElement = (text) => {
             const newDiv = document.createElement('div');
@@ -89,37 +81,39 @@
             newMake();
         }
 
-        // const changeType = (e) => {
-        //     if (e.target.innerText === '서판교' && !typeButton.className.includes('active')) {
-        //         typeButton.className += 'active';
-        //         type = '서판교';
-        //         typeButton2.classList.remove('active');
-        //     } else if (e.target.innerText === '오산' && !typeButton2.className.includes('active')) {
-        //         typeButton2.className += 'active';
-        //         typeButton.classList.remove('active');
-        //         type = '오산';
-        //     }
-        //     currentProduct = product.find((i) => i.place === type);
-        //     newMake();
-        // };
+        const calculateAngle = (x, y) => {
+            const centerX = 600 / 2;
+            const centerY = 600 / 2;
+            return Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+        };
 
-        const touchStartEvent =  (e) => {
-            startY = e.changedTouches[0].clientY;
-        }
-        //TODO: start end값 초기화 안되는듯? 버그있음
-        const touchMoveEvent =  (e) => {
-            if (endY - startY > 50) {
-                isClockwise = true;
-                rotate(isClockwise);
-            } else if (endY - startY < -50) {
-                isClockwise = false;
-                rotate(isClockwise);
+        const touchStartEvent = (e) => {
+            const touchX = e.changedTouches[0].clientX;
+            const touchY = e.changedTouches[0].clientY;
+            startAngle = calculateAngle(touchX, touchY);
+            lastMoveTime = Date.now();
+        };
+
+        const touchMoveEvent = (e) => {
+            const touchX = e.changedTouches[0].clientX;
+            const touchY = e.changedTouches[0].clientY;
+            const currentAngle = calculateAngle(touchX, touchY);
+            const angleDelta = currentAngle - startAngle;
+
+            rotate(angleDelta);
+
+            lastVelocity = angleDelta / (Date.now() - lastMoveTime);
+            lastMoveTime = Date.now();
+        };
+
+        const touchEndEvent = () => {
+            const timeSinceLastMove = Date.now() - lastMoveTime;
+
+            if (timeSinceLastMove < 100) {
+                const direction = lastVelocity > 0 ? 1 : -1;
+                rotate(currentRotation, true, direction);
             }
-        }
-        
-        const touchEndEvent = (e) => {
-            endY =  e.changedTouches[0].clientY;
-        }
+        };
 
         const newMake = () => {
             const [cw, ch] = [$c.width / 2, $c.height / 2];
@@ -162,19 +156,21 @@
             }
         };
 
-        const rotate = (isClockwise) => {
-            $c.style.transform = `initial`;
-            $c.style.transition = `initial`;
+        const rotate = (angle, spin = false, direction = 1) => {
+            $c.style.transition = spin ? `2s` : `initial`;
 
-            const alpha = Math.floor(Math.random() * 100);
-
-            setTimeout(() => {
-                const ran = Math.floor(Math.random() * currentProduct.foods.length);
-                const arc = 360 / currentProduct.foods.length;
-                const rotate = ran * arc + 3600 + arc * 3 - arc / 4 + alpha;
-                $c.style.transform = isClockwise ? `rotate(${rotate}deg)` : `rotate(-${rotate}deg)`;
-                $c.style.transition = `2s`;
-            }, 1);
+            if (spin) {
+                const spinAngle = direction * (1800 + Math.floor(Math.random() * 360));
+                currentRotation += spinAngle;
+                $c.style.transform = `rotate(${currentRotation}deg)`;
+            } else {
+                currentRotation = angle;
+                if (direction === 1) {
+                    $c.style.transform = `rotate(${currentRotation}deg)`;
+                } else {
+                    $c.style.transform = `rotate(${-currentRotation}deg)`;
+                }
+            }
         };
 
         const add = () => {
