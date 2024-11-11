@@ -67,13 +67,11 @@
   #menuList div {
     width: 100%;
     color: #fff;
-    -webkit-tap-highlight-color: #051234;
     user-select: none;
   }
 
   #menuList div:hover {
     color: #fff;
-    background-color: #000;
   }
 
   .icn-wrapper {
