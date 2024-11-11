@@ -34,9 +34,11 @@
 
   #menuAdd {
     margin-right: 10px;
+    padding: 0 14px;
     height: 26px;
-    border: 1px solid #78cad2;
+    border: 1px solid #060621;
     border-radius: 5px;
+    outline: none;
   }
    
   #menu {
