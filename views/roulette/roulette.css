@@ -12,26 +12,23 @@
   }
   
   button {
-      padding: 5px 12px;
-      color: #fff;
+      padding: 0 12px;
+      height: 26px;
+      line-height: 26px;
+      color: #051335;
       font-size: 16px;
       font-weight: 600;
       border: none;
-      background-color: #78cad2;
+      background-color: #fff;
       border-radius: 5px;
       cursor: pointer;
-  }
-  
-  .active {
-    background: #78cad2 !important;
-    color: #fff !important;
   }
 
   #addDiv {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-top: 20px;
-    margin-bottom: 20px;
   }
 
   #menuAdd {
@@ -57,15 +54,16 @@
     top: 0;
     right: 0;
     flex-wrap: wrap;
-    width: 100vw;
+    padding: 0 10px;
+    width: calc(100vw - 15vw);
     height: 100svh;
-    transform: translateX(15vw);
+    transform: translateX(100vw);
     background-color: #051234;
     z-index: 100;
   }
 
   #menuList div {
-    width: calc(100% - 15vw);
+    width: 100%;
     color: #fff;
   }
 
