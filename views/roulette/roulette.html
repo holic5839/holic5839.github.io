@@ -78,9 +78,6 @@
 
             cancelImg.src = '../../assets/icn-cancel.svg';
             cancelImg.alt = 'cancel';
-            cancelImg.onclick = (e) => {
-                console.log(e)
-            }
             
             newDiv.appendChild(newContent);
             newDiv.appendChild(cancelImg);
@@ -131,16 +128,14 @@
         const newMake = () => {
             const [cw, ch] = [$c.width / 2, $c.height / 2];
             const arc = Math.PI / (currentProduct.foods.length / 2);
+            colors.length = 0;
+            
             for (let i = 0; i < currentProduct.foods.length; i++) {
                 ctx.beginPath();
-                if (colors.length == 0) {
-                    for (var l = 0; l < currentProduct.foods.length; l++) {
-                        let r = Math.floor(Math.random() * 256);
-                        let g = Math.floor(Math.random() * 256);
-                        let b = Math.floor(Math.random() * 256);
-                        colors.push('rgb(' + r + ',' + g + ',' + b + ')');
-                    }
-                }
+                let r = Math.floor(Math.random() * 256);
+                let g = Math.floor(Math.random() * 256);
+                let b = Math.floor(Math.random() * 256);
+                colors.push(`rgb(${r}, ${g}, ${b})`);
                 ctx.fillStyle = colors[i % colors.length];
                 ctx.moveTo(cw, ch);
                 ctx.arc(cw, ch, cw, arc * (i - 1), arc * i);
@@ -178,22 +173,16 @@
                 $c.style.transform = `rotate(${currentRotation}deg)`;
             } else {
                 currentRotation = angle;
-                if (direction === 1) {
-                    $c.style.transform = `rotate(${currentRotation}deg)`;
-                } else {
-                    $c.style.transform = `rotate(${-currentRotation}deg)`;
-                }
+                $c.style.transform = `rotate(${currentRotation}deg)`;
             }
         };
 
         const add = () => {
-            if (menuAdd.value != undefined && menuAdd.value != '') {
+            if (menuAdd.value.trim()) {
                 currentProduct.foods.push(menuAdd.value);
-                let r = Math.floor(Math.random() * 256);
-                let g = Math.floor(Math.random() * 256);
-                let b = Math.floor(Math.random() * 256);
-                colors.push('rgb(' + r + ',' + g + ',' + b + ')');
+                addElement(menuAdd.value);
                 newMake();
+                menuAdd.value = '';
             } else {
                 alert('메뉴를 입력한 후 버튼을 클릭 해 주세요');
             }
@@ -203,34 +192,22 @@
                 addElement(food);
             });
 
-        addMenu.addEventListener('click', () => {
-            if (menuAdd.value) {
-                addElement(menuAdd.value);
-                menuAdd.value = '';
-            }
-        })
+        addMenu.addEventListener('click', add);
 
         menuAdd.addEventListener('keyup', (e) => {
-            if (menuAdd.value && e.keyCode === 13) {
+            if (e.key === 'Enter') {
                 add();
-                addElement(menuAdd.value);
-                menuAdd.value = '';
             }
         })
         
         openMenu.addEventListener('click', () => {
-            if (isOpenMenu) {
-                menuList.style.transform = 'translateX(100vw)';
-                isOpenMenu = false
-            } else {
-                menuList.style.transform = 'translateX(0vw)';
-                isOpenMenu = true
-            }
-        })
+            menuList.style.transform = isOpenMenu ? 'translateX(100vw)' : 'translateX(0vw)';
+            isOpenMenu = !isOpenMenu;
+        });
 
-        $c.addEventListener('touchstart', touchStartEvent)
-        $c.addEventListener('touchmove', touchMoveEvent)
-        $c.addEventListener('touchend', touchEndEvent)
+        $c.addEventListener('touchstart', touchStartEvent);
+        $c.addEventListener('touchmove', touchMoveEvent);
+        $c.addEventListener('touchend', touchEndEvent);
 
         newMake();
     </script>
