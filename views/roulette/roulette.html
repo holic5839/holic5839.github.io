@@ -276,7 +276,7 @@
         });
 
         const handleOrientation = (e) => {
-            if (e.currentTarget.innerWidth < e.currentTarget.innerHeight) {
+            if (e.currentTarget.innerWidth > e.currentTarget.innerHeight) {
                 canvasWrapper.style.width = '40%';
             } else {
                 canvasWrapper.style.width = '100%';
