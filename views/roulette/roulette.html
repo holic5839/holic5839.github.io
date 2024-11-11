@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet" />
         <link
@@ -29,8 +29,8 @@
                 <input type="text" id="menuAdd" />
                 <button onclick="add()" id="addMenu">메뉴 추가</button>
             </div>
-            <div id="menuList"></div>
         </div>
+        <div id="menuList"></div>
     </body>
     <script>
         const $c = document.querySelector('canvas');
@@ -54,19 +54,27 @@
         const addElement = (text) => {
             const newDiv = document.createElement('div');
             const newContent = document.createTextNode(text);
+            const cancelImg = document.createElement('img');
 
             newDiv.className = 'menu-name-' + text;
+            newDiv.style.display = 'flex';
+            newDiv.style.justifyContent = 'space-between';
+            newDiv.style.alignItems = 'center';
             newDiv.style.padding = '15px';
-            newDiv.style.margin = '0 5px 5px 0';
-            newDiv.style.border = '1px solid #eaeaea';
-            newDiv.style.borderRadius = '10px';
+            newDiv.style.borderBottom = '1px solid #eaeaea';
             newDiv.style.cursor = 'pointer';
-
             newDiv.onclick = () => {
                 delElement(text);
             }
 
+            cancelImg.src = '../../assets/icn-cancel.svg';
+            cancelImg.alt = 'cancel';
+            cancelImg.onclick = (e) => {
+                console.log(e)
+            }
+            
             newDiv.appendChild(newContent);
+            newDiv.appendChild(cancelImg);
             menuList.appendChild(newDiv);
         };
 

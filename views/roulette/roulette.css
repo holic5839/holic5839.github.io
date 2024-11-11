@@ -53,12 +53,19 @@
   }
 
   #menuList {
-    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
     flex-wrap: wrap;
-    width: 300px;
+    width: 100vw;
+    height: 100svh;
+    transform: translateX(15vw);
+    background-color: #051234;
+    z-index: 100;
   }
 
   #menuList div {
+    width: calc(100% - 15vw);
     color: #fff;
   }
 
@@ -112,6 +119,7 @@
     border-radius: 50%;
     z-index: 22;
     cursor: pointer;
+    user-select: none;
   }
 
   .start-button p {
