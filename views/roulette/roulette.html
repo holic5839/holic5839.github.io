@@ -50,6 +50,7 @@
         const addMenu = document.querySelector('#addMenu');
         const openMenuWrapper = document.querySelector('.icn-wrapper');
         const result = document.querySelector('#result');
+        const canvasWrapper = document.querySelector('.canvasWrapper');
 
         const colors = [];
         const product = {
@@ -274,10 +275,27 @@
             }
         });
 
+        const handleOrientation = (e) => {
+            if (e.currentTarget.innerWidth < e.currentTarget.innerHeight) {
+                canvasWrapper.style.width = '40%';
+            } else {
+                canvasWrapper.style.width = '100%';
+            }
+        }
+
+        const onloadOrientation = (e) => {
+            if (e.currentTarget.innerWidth > e.currentTarget.innerHeight) {
+                canvasWrapper.style.width = '40%';
+            } else {
+                canvasWrapper.style.width = '100%';
+            }
+        }
+
         $c.addEventListener('touchstart', touchStartEvent);
         $c.addEventListener('touchmove', touchMoveEvent);
         $c.addEventListener('touchend', touchEndEvent);
-
+        window.addEventListener("orientationchange", handleOrientation);
+        window.addEventListener("DOMContentLoaded", onloadOrientation);
         newMake();
     </script>
 </html>
