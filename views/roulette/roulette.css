@@ -3,6 +3,7 @@
     height : 100vh;
     overflow: hidden;
     background-color: #060621;
+    touch-action: manipulation;
   }
   
   canvas {
@@ -66,6 +67,7 @@
   #menuList div {
     width: 100%;
     color: #fff;
+    -webkit-tap-highlight-color: #051234;
     user-select: none;
   }
 
