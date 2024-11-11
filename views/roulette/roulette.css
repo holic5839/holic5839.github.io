@@ -66,7 +66,7 @@
   #menuList div {
     width: 100%;
     color: #fff;
-    -webkit-tap-highlight-color: #051234;
+    user-select: none;
   }
 
   #menuList div:hover {
