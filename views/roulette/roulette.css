@@ -78,6 +78,14 @@
     color: #fff;
   }
 
+  #result {
+    position: absolute;
+    top: -150px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+  }
+
   .icn-wrapper {
     position: fixed;
     top: 15px;
