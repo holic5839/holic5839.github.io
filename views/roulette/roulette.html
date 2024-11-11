@@ -283,19 +283,12 @@
             }
         }
 
-        const onloadOrientation = (e) => {
-            if (e.currentTarget.innerWidth > e.currentTarget.innerHeight) {
-                canvasWrapper.style.width = '40%';
-            } else {
-                canvasWrapper.style.width = '100%';
-            }
-        }
-
         $c.addEventListener('touchstart', touchStartEvent);
         $c.addEventListener('touchmove', touchMoveEvent);
         $c.addEventListener('touchend', touchEndEvent);
-        window.addEventListener("orientationchange", handleOrientation);
-        window.addEventListener("DOMContentLoaded", onloadOrientation);
+
+        window.addEventListener("resize", handleOrientation);
+        window.addEventListener("DOMContentLoaded", handleOrientation);
         newMake();
     </script>
 </html>
