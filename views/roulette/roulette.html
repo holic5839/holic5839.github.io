@@ -134,9 +134,11 @@
 
         const newMake = () => {
             const [cw, ch] = [$c.width / 2, $c.height / 2];
-            const arc = Math.PI / (currentProduct.foods.length / 2);
+            const arc = (2 * Math.PI) / currentProduct.foods.length;
+            const startAngleOffset = -Math.PI / 2;
+
             colors.length = 0;
-            
+
             for (let i = 0; i < currentProduct.foods.length; i++) {
                 ctx.beginPath();
                 let r = Math.floor(Math.random() * 256);
@@ -145,7 +147,13 @@
                 colors.push(`rgb(${r}, ${g}, ${b})`);
                 ctx.fillStyle = colors[i % colors.length];
                 ctx.moveTo(cw, ch);
-                ctx.arc(cw, ch, cw, arc * (i - 1), arc * i);
+                ctx.arc(
+                    cw,
+                    ch,
+                    cw,
+                    startAngleOffset + arc * i,
+                    startAngleOffset + arc * (i + 1)
+                );
                 ctx.fill();
                 ctx.closePath();
             }
@@ -155,12 +163,13 @@
             ctx.textAlign = 'center';
 
             for (let i = 0; i < currentProduct.foods.length; i++) {
-                const angle = arc * i + arc / 2;
+                const angle = startAngleOffset + arc * i + arc / 2;
 
                 ctx.save();
-
-                ctx.translate(cw + Math.cos(angle) * (cw - 50), ch + Math.sin(angle) * (ch - 50));
-
+                ctx.translate(
+                    cw + Math.cos(angle) * (cw - 50),
+                    ch + Math.sin(angle) * (ch - 50)
+                );
                 ctx.rotate(angle + Math.PI / 2);
 
                 currentProduct.foods[i].split(' ').forEach((text, j) => {
@@ -178,10 +187,37 @@
                 const spinAngle = direction * (1800 + Math.floor(Math.random() * 360));
                 currentRotation += spinAngle;
                 $c.style.transform = `rotate(${currentRotation}deg)`;
+                
+                setTimeout(() => {
+                    const stoppedMenu = getStoppedMenu(currentRotation);
+
+                    if (direction === 1) {
+                        alert(`${currentProduct.foods[currentProduct.foods.length - 1 - stoppedMenu]}`);
+                    } else {
+                        alert(`${currentProduct.foods[stoppedMenu]}`);
+                    }
+                    $c.style.transform = 'rotate(0deg)';
+                    $c.style.transition = 'initial';
+                }, 2000);
             } else {
                 currentRotation = angle;
                 $c.style.transform = `rotate(${currentRotation}deg)`;
             }
+        };
+
+        const getStoppedMenu = (rotation) => {
+            let normalizedRotation = Math.abs(rotation) % 360;
+            let arc = 360 / currentProduct.foods.length;
+            let fractionalMovement = normalizedRotation / arc;
+            let integerPart = Math.floor(fractionalMovement);
+            let decimalPart = fractionalMovement - integerPart;
+            let count = integerPart;
+
+            if (decimalPart > 0) {
+                count += 1;
+            }
+
+            return count - 1;
         };
 
         const add = () => {
