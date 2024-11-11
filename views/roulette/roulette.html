@@ -44,7 +44,7 @@
         const menuAdd = document.querySelector('#menuAdd');
         const menuList = document.querySelector('#menuList');
         const addMenu = document.querySelector('#addMenu');
-        const openMenu = document.querySelector('.icn-wrapper');
+        const openMenuWrapper = document.querySelector('.icn-wrapper');
 
         const colors = [];
         const product = {
@@ -72,8 +72,8 @@
             newDiv.style.padding = '15px';
             newDiv.style.borderBottom = '1px solid #eaeaea';
             newDiv.style.cursor = 'pointer';
-            newDiv.onclick = () => {
-                delElement(text);
+            newDiv.onclick = (e) => {
+                delElement(text, e);
             }
 
             cancelImg.src = '../../assets/icn-cancel.svg';
@@ -84,7 +84,9 @@
             menuList.appendChild(newDiv);
         };
 
-        const delElement = (text) => {
+        const delElement = (text, e) => {
+            e.stopPropagation();
+
             const currentElement = menuList.querySelector(`.menu-name-${text}`);
             currentProduct.foods = currentProduct.foods.filter(i => i !== text);
             menuList.removeChild(currentElement)
@@ -188,6 +190,24 @@
             }
         };
 
+        const openMenu = () => {
+            menuList.style.transform = 'translateX(0vw)';
+            isOpenMenu = true;
+        }
+
+        const closeMenu = () => {
+            menuList.style.transform = 'translateX(100vw)';
+            isOpenMenu = false;
+        }
+
+        const toggleMenu = () => {
+            if (isOpenMenu) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        }
+
         currentProduct.foods.forEach((food) => {
                 addElement(food);
             });
@@ -200,9 +220,14 @@
             }
         })
         
-        openMenu.addEventListener('click', () => {
-            menuList.style.transform = isOpenMenu ? 'translateX(100vw)' : 'translateX(0vw)';
-            isOpenMenu = !isOpenMenu;
+        openMenuWrapper.addEventListener('click', (e) => {
+            toggleMenu();
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (isOpenMenu && !menuList.contains(e.target) && !openMenuWrapper.contains(e.target)) {
+                closeMenu();
+            }
         });
 
         $c.addEventListener('touchstart', touchStartEvent);
