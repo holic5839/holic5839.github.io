@@ -18,6 +18,7 @@
     </head>
     <body>
         <div id="menu">
+            <img src="../../assets/icn-refresh.svg" class="icn-refresh" alt="refresh" onclick="refresh()"/>
             <div class="icn-wrapper">
                 <img src="../../assets/icn-menu.svg" alt="menu"/>
             </div>
@@ -59,6 +60,10 @@
         let lastMoveTime = 0;
         let lastVelocity = 0;
         let isOpenMenu = false;
+
+        const refresh = () => {
+            window.location.reload();
+        }
 
         const addElement = (text) => {
             const newDiv = document.createElement('div');

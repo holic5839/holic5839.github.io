@@ -66,7 +66,7 @@
   #menuList div {
     width: 100%;
     color: #fff;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: #051234;
   }
 
   #menuList div:hover {
@@ -78,6 +78,13 @@
     position: fixed;
     top: 15px;
     right: 15px;
+    cursor: pointer;
+  }
+
+  .icn-refresh {
+    position: fixed;
+    top: 15px;
+    left: 15px;
     cursor: pointer;
   }
 
