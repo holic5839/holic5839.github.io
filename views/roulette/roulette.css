@@ -58,6 +58,7 @@
     width: calc(100vw - 15vw);
     height: 100svh;
     transform: translateX(100vw);
+    transition: transform 0.5s;
     background-color: #051234;
     z-index: 100;
   }
@@ -72,12 +73,11 @@
     background-color: #000;
   }
 
-  .type-button {
-    margin-top: 20px;
-  }
-
-  .type-button button {
-     background-color: #eaeaea;
+  .icn-wrapper {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
   }
 
   .canvasWrapper {

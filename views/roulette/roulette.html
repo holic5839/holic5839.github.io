@@ -18,6 +18,9 @@
     </head>
     <body>
         <div id="menu">
+            <div class="icn-wrapper">
+                <img src="../../assets/icn-menu.svg" alt="menu"/>
+            </div>
             <div class="canvasWrapper">
                 <div class="pin"></div>
                 <div class="start-button" onclick="rotate(360, true)">
@@ -26,6 +29,7 @@
                 <canvas width="600" height="600"></canvas>
             </div>
         </div>
+
         <div id="menuList">
             <div id="addDiv">
                 <input type="text" id="menuAdd" />
@@ -36,21 +40,25 @@
     <script>
         const $c = document.querySelector('canvas');
         const ctx = $c.getContext(`2d`);
+
         const menuAdd = document.querySelector('#menuAdd');
         const menuList = document.querySelector('#menuList');
         const addMenu = document.querySelector('#addMenu');
+        const openMenu = document.querySelector('.icn-wrapper');
+
         const colors = [];
         const product = {
             place: '서판교',
             foods: ['베트남', '마라탕', '닭갈비', '중국집', '햄버거', '백반', '솥밥', '육개장', '청년다방'],
         };
-
+        
         let currentProduct = product;
 
         let startAngle = 0;
         let currentRotation = 0;
         let lastMoveTime = 0;
         let lastVelocity = 0;
+        let isOpenMenu = false;
 
         const addElement = (text) => {
             const newDiv = document.createElement('div');
@@ -210,6 +218,16 @@
             }
         })
         
+        openMenu.addEventListener('click', () => {
+            if (isOpenMenu) {
+                menuList.style.transform = 'translateX(100vw)';
+                isOpenMenu = false
+            } else {
+                menuList.style.transform = 'translateX(0vw)';
+                isOpenMenu = true
+            }
+        })
+
         $c.addEventListener('touchstart', touchStartEvent)
         $c.addEventListener('touchmove', touchMoveEvent)
         $c.addEventListener('touchend', touchEndEvent)
