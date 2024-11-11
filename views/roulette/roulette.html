@@ -18,12 +18,14 @@
     </head>
     <body>
         <div id="menu">
-            <img src="../../assets/icn-refresh.svg" class="icn-refresh" alt="refresh" onclick="refresh()"/>
-            <div class="icn-wrapper">
-                <img src="../../assets/icn-menu.svg" alt="menu"/>
+            <div class="header">
+                <img src="../../assets/icn-refresh.svg" class="icn-refresh" alt="refresh" onclick="refresh()"/>
+                <div id="result"></div>
+                <div class="icn-wrapper">
+                    <img src="../../assets/icn-menu.svg" alt="menu"/>
+                </div>
             </div>
             <div class="canvasWrapper">
-                <div id="result"></div>
                 <div class="pin"></div>
                 <div class="start-button" onclick="rotate(360, true)">
                     <p>시작</p>
