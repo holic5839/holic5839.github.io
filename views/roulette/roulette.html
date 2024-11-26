@@ -86,8 +86,11 @@
             const newDiv = document.createElement('div');
             const newContent = document.createTextNode(text);
             const cancelImg = document.createElement('img');
+            const imgWrapper = document.createElement('div');
 
             newDiv.className = 'menu-name-' + text;
+            imgWrapper.className = 'del-menu';
+            
             newDiv.style.display = 'flex';
             newDiv.style.justifyContent = 'space-between';
             newDiv.style.alignItems = 'center';
@@ -98,11 +101,18 @@
                 delElement(text, e);
             }
 
+            imgWrapper.style.display = 'flex';
+            imgWrapper.style.alignItems = 'center';
+            imgWrapper.style.justifyContent = 'center';
+            imgWrapper.style.width = '30px';
+            imgWrapper.style.height = '30px';
+
             cancelImg.src = '../../assets/icn-cancel.svg';
             cancelImg.alt = 'cancel';
             
             newDiv.appendChild(newContent);
-            newDiv.appendChild(cancelImg);
+            newDiv.appendChild(imgWrapper);
+            imgWrapper.appendChild(cancelImg);
             menuList.appendChild(newDiv);
         };
 
@@ -110,13 +120,15 @@
             e.stopPropagation();
 
             const currentElement = menuList.querySelector(`.menu-name-${text}`);
+            const currentDelButton = currentElement.querySelector('.del-menu');
 
-            currentProduct.foods = currentProduct.foods.filter(i => i !== text);
-            setCookie('menuList', JSON.stringify(currentProduct.foods));
-
-            menuList.removeChild(currentElement)
-
-            newMake();
+            currentDelButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                currentProduct.foods = currentProduct.foods.filter(i => i !== text);
+                setCookie('menuList', JSON.stringify(currentProduct.foods));
+                menuList.removeChild(currentElement);
+                newMake();
+            });
         }
 
         const calculateAngle = (x, y) => {
